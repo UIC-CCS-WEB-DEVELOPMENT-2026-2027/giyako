@@ -38,7 +38,6 @@ const person = (id, name, program, handle, pronouns, description, socials, color
   description,
   avatar: null, // initials avatar
   color,
-  visibility: "My campus",
   socials: ["instagram", "tiktok", "discord"].map((type) => ({ type, value: socials[type] ?? "" })),
   logs: logIds.map((i) => BY_ID[i]), // first log = featured pick
 });
@@ -82,4 +81,21 @@ const REPLIES = {
   p8: ["Chaotic is the right word for my playlist, brace yourself.", "I'm soldering something right now, one sec.", "Okay, that's a fun one. Tell me more.", "Ha. Send me a song and I'll send one back."],
 };
 
-export const MOCK_PROFILES = RAW_PROFILES.map((p) => ({ ...p, replies: REPLIES[p.id] }));
+// Who follows whom between the sample people. `followsMe` means they already follow you.
+// `statsVisibility` overrides who can see their followers / following
+// (everyone | mutuals = follow each other with you | private); anything left out defaults to everyone.
+const GRAPH = {
+  p1: { follows: ["p3", "p4", "p6", "p8"], followsMe: true },
+  p2: { follows: ["p5", "p7", "p4"], followsMe: true, statsVisibility: { following: "mutuals" } },
+  p3: { follows: ["p1", "p5", "p6", "p8"], followsMe: false },
+  p4: { follows: ["p1", "p2"], followsMe: true, statsVisibility: { followers: "mutuals", following: "private" } },
+  p5: { follows: ["p2", "p3", "p7"], followsMe: false },
+  p6: { follows: ["p1", "p3", "p4", "p8"], followsMe: true },
+  p7: { follows: ["p2", "p5"], followsMe: false, statsVisibility: { followers: "mutuals" } },
+  p8: { follows: ["p1", "p3", "p6", "p7"], followsMe: false, statsVisibility: { following: "private" } },
+};
+
+// Year level of each sample person (ids from lib/years.js)
+const YEAR_OF = { p1: "2", p2: "3", p3: "3", p4: "4", p5: "1", p6: "2", p7: "4", p8: "1" };
+
+export const MOCK_PROFILES = RAW_PROFILES.map((p) => ({ ...p, year: YEAR_OF[p.id], replies: REPLIES[p.id], ...GRAPH[p.id] }));

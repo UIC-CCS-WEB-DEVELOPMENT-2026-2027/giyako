@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { changePassword } from "../lib/auth";
+import { AUDIENCES, STAT_KINDS, statsVisibility } from "../lib/follows";
 import "./Settings.css";
-
-const VISIBILITY = ["My campus", "My college only", "People I’ve logged", "Just me"];
 
 function Toggle({ label, hint, checked, onChange }) {
   return (
@@ -17,6 +16,7 @@ export default function Settings({ email, profile, settings, onSettings, onProfi
   const [pw, setPw] = useState({ current: "", next: "" });
   const [msg, setMsg] = useState(null);
   const [confirm, setConfirm] = useState(false);
+  const vis = statsVisibility(profile);
 
   const savePassword = async (e) => {
     e.preventDefault();
@@ -49,13 +49,21 @@ export default function Settings({ email, profile, settings, onSettings, onProfi
         </form>
       </section>
 
-      <section className="st__card" aria-label="Privacy">
-        <h2>Privacy</h2>
-        <label className="st__select">Who can see your profile
-          <select value={profile.visibility} onChange={(e) => onProfile({ ...profile, visibility: e.target.value })}>
-            {VISIBILITY.map((v) => <option key={v}>{v}</option>)}
-          </select>
-        </label>
+      <section className="st__card" aria-label="Followers and following">
+        <h2>Followers and following</h2>
+        <p className="st__hint">
+          Choose who can see each list on your profile. “People I follow back” means people you follow who also follow you.
+        </p>
+        <div className="st__stack">
+          {STAT_KINDS.map((k) => (
+            <label key={k.id} className="st__select">Who can see your {k.label.toLowerCase()}
+              <select value={vis[k.id]}
+                onChange={(e) => onProfile({ ...profile, statsVisibility: { ...vis, [k.id]: e.target.value } })}>
+                {AUDIENCES.map((a) => <option key={a.id} value={a.id}>{a.label}</option>)}
+              </select>
+            </label>
+          ))}
+        </div>
       </section>
 
       <section className="st__card" aria-label="Preferences">

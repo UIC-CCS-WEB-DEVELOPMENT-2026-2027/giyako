@@ -58,7 +58,8 @@ export const PAGES = {
         h: "What you give us",
         list: [
           "Your email and password, to create and secure your account.",
-          "Profile details: name, handle, program, pronouns, bio, photo, social handles and visibility setting.",
+          "Profile details: name, handle, program, year level, pronouns, bio, photo and social handles.",
+          "Who you follow, and your choices for who can see your followers and following.",
           "Your logs, including which one is your featured pick.",
           "Your messages, notifications and settings.",
           "Your Campus Hub posts, votes and comments.",
@@ -85,9 +86,9 @@ export const PAGES = {
         ],
       },
       {
-        h: "Who can see your profile",
+        h: "Who can see your followers",
         p: [
-          "Your profile has a visibility setting (My campus, My college only, People I’ve logged or Just me). In the demo this is saved as a preference but doesn’t yet limit who can see you, because there’s no shared server. The people shown on Home are sample profiles, not real users.",
+          "For followers and following you can choose Everyone, People I follow back or Only me in Settings. Profiles also show a small “Mutuals with you” badge when someone you follow also follows that person. It doesn’t name those people or count them. Giyako applies that choice to the people shown in the demo, but because there’s no shared server, no real user can see your profile yet. The people shown on Home, and who follows whom, are sample data.",
         ],
       },
       {
@@ -95,7 +96,7 @@ export const PAGES = {
         list: [
           "Edit your profile, logs and settings any time.",
           "Turn off message notifications or animations in Settings.",
-          "Delete your account in Settings to remove your account, logs, messages, notifications and posts from this browser. Clearing your browser’s site data does the same.",
+          "Delete your account in Settings to remove your account, logs, follows, messages, notifications and posts from this browser. Clearing your browser’s site data does the same.",
         ],
       },
       {

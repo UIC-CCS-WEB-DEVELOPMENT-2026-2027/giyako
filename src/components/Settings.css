@@ -8,6 +8,8 @@
 .st__form label, .st__select { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
 .st__form input, .st__select select { padding: 11px 14px; border: 1px solid var(--giyako-border); border-radius: 12px; background: var(--giyako-field); font: inherit; font-size: 15px; font-weight: 400; color: var(--giyako-ink); outline: 0; }
 .st__form input:focus, .st__select select:focus { border-color: var(--giyako-green); box-shadow: 0 0 0 3px rgba(31, 74, 58, 0.12); }
+.st__hint { margin: -6px 0 18px; font-size: 14px; line-height: 1.5; color: var(--giyako-muted); }
+.st__stack { display: grid; gap: 16px; }
 .st__ok, .st__bad { margin: 0; font-size: 14px; font-weight: 600; } .st__ok { color: var(--giyako-green); } .st__bad { color: #b3321f; }
 
 .st__toggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; font-size: 15px; font-weight: 600; cursor: pointer; }

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import MediaCover from "./MediaCover";
 import { searchMedia } from "../lib/media";
+import { YEARS } from "../lib/years";
 import { DEMO_CODE, handleProblem, handleTaken, normalizeHandle, verifyEmail } from "../lib/auth";
 import "./Auth.css";
 
-const STEPS = ["verify", "handle", "photo", "about", "links", "interests"];
+const STEPS = ["verify", "handle", "year", "photo", "about", "links", "interests"];
 const TITLES = {
   verify: ["Check your email", "We sent a 6-digit code to confirm it’s you."],
   handle: ["Pick your handle", "This is how people find and mention you. You can change it later."],
+  year: ["Which year are you in?", "This shows on your profile so people know where you’re at. Required."],
   photo: ["Add a profile photo", "Faces help people say hi. Optional."],
   about: ["Tell people about you", "A line or two goes a long way. Optional."],
   links: ["Where else can people find you?", "Add the places you’re happy to be found. Optional."],
@@ -35,8 +37,8 @@ export default function Onboarding({ user, onFinish }) {
   const [items, setItems] = useState(null); // null = loading, [] = failed
   const [picks, setPicks] = useState([]);
   const [p, setP] = useState({
-    name: "", handle: "", avatar: null, program: "", pronouns: "", description: "",
-    visibility: "My campus", socials: { instagram: "", tiktok: "", discord: "" },
+    name: "", handle: "", avatar: null, year: "", program: "", pronouns: "", description: "",
+    socials: { instagram: "", tiktok: "", discord: "" },
   });
   const step = STEPS[i];
   const set = (k) => (e) => setP((d) => ({ ...d, [k]: e.target.value }));
@@ -49,7 +51,11 @@ export default function Onboarding({ user, onFinish }) {
     return () => ctl.abort();
   }, [step, items]);
 
-  const finish = () =>
+  const finish = () => {
+    if (!p.year) {
+      setI(STEPS.indexOf("year"));
+      return setErr("Choose your year to continue.");
+    }
     onFinish(
       {
         ...p,
@@ -60,6 +66,7 @@ export default function Onboarding({ user, onFinish }) {
       },
       picks
     );
+  };
 
   const next = () => {
     setErr("");
@@ -67,10 +74,11 @@ export default function Onboarding({ user, onFinish }) {
       try { verifyEmail(user.email, code); } catch (e) { return setErr(e.message); }
     }
     if (step === "handle" && (!p.handle || handleMsg)) return setErr(handleMsg || "Choose a handle to continue.");
+    if (step === "year" && !p.year) return setErr("Choose your year to continue.");
     i === STEPS.length - 1 ? finish() : setI(i + 1);
   };
 
-  const optional = !["verify", "handle"].includes(step);
+  const optional = !["verify", "handle", "year"].includes(step);
   const n = i, total = STEPS.length - 1;
 
   return (
@@ -120,6 +128,18 @@ export default function Onboarding({ user, onFinish }) {
             </>
           )}
 
+          {step === "year" && (
+            <div className="au__years" role="radiogroup" aria-label="Year level">
+              {YEARS.map((y) => (
+                <button key={y.id} type="button" role="radio" aria-checked={p.year === y.id}
+                  className={`au__year ${p.year === y.id ? "is-on" : ""}`}
+                  onClick={() => { setP((d) => ({ ...d, year: y.id })); setErr(""); }}>
+                  {y.label}
+                </button>
+              ))}
+            </div>
+          )}
+
           {step === "photo" && (
             <div className="au__photo">
               {p.avatar ? <img src={p.avatar} alt="Your profile photo preview" /> :
@@ -148,11 +168,6 @@ export default function Onboarding({ user, onFinish }) {
                 <label className="au__field"><span>Pronouns</span>
                   <input value={p.pronouns} maxLength={16} onChange={set("pronouns")} placeholder="she/her" /></label>
               </div>
-              <label className="au__field"><span>Who can see your profile</span>
-                <select value={p.visibility} onChange={set("visibility")}>
-                  <option>My campus</option><option>My college only</option>
-                  <option>People I’ve logged</option><option>Just me</option>
-                </select></label>
             </>
           )}
 
@@ -196,7 +211,7 @@ export default function Onboarding({ user, onFinish }) {
               </button>
             )}
           </div>
-          {n > 1 && (
+          {i > STEPS.indexOf("year") && (
             <button type="button" className="au__later" onClick={finish}>Finish setup later</button>
           )}
         </form>

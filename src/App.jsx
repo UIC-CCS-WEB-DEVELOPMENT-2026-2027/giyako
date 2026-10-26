@@ -10,11 +10,13 @@ import MyLogs from "./components/MyLogs";
 import Messages from "./components/Messages";
 import Settings from "./components/Settings";
 import CampusHub from "./components/CampusHub";
+import FollowList from "./components/FollowList";
 import { loadNotifs, saveNotifs, newNotif } from "./lib/notifications";
 import { loadSettings, saveSettings } from "./lib/settings";
 import { loadThreads, saveThreads, newMessage, unreadCount } from "./lib/messages";
 import { loadLogs, saveLogs, toLog, searchMedia } from "./lib/media";
 import { MOCK_PROFILES } from "./lib/mockProfiles";
+import { loadFollowing, saveFollowing, buildGraph, statsFor, sharedConnections } from "./lib/follows";
 import "./App.css";
 
 const SUGGESTIONS_SHOWN = 6;
@@ -90,6 +92,8 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
   const replyTimers = useRef(new Map());
   const [notifs, setNotifs] = useState(loadNotifs);
   const [settings, setSettings] = useState(loadSettings);
+  const [following, setFollowing] = useState(loadFollowing);
+  const [statsOpen, setStatsOpen] = useState(null); // { ownerId, kind } while the follow list is open
   // Latest values for use inside the delayed mock reply
   const live = useRef({});
   live.current = { settings, tab: activeTab, chat: chatId };
@@ -97,6 +101,7 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
   useEffect(() => saveLogs(logs), [logs]);
   useEffect(() => saveThreads(threads), [threads]);
   useEffect(() => saveNotifs(notifs), [notifs]);
+  useEffect(() => saveFollowing(following), [following]);
   useEffect(() => {
     saveSettings(settings);
     document.documentElement.dataset.motion = settings.reduceMotion ? "reduced" : "";
@@ -123,6 +128,18 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
     () => MOCK_PROFILES.map((p) => ({ ...p, logs: p.logs.map(withPoster) })),
     [posters] // eslint-disable-line react-hooks/exhaustive-deps
   );
+
+  const graph = useMemo(() => buildGraph(people, following), [people, following]);
+  // Everyone who can appear in a follow list, you included
+  const directory = useMemo(
+    () => ({
+      me: { id: "me", name: profile.name, handle: profile.handle, color: profile.color ?? "#1f4a3a", avatar: profile.avatar, year: profile.year },
+      ...Object.fromEntries(people.map((p) => [p.id, p])),
+    }),
+    [people, profile]
+  );
+  const toggleFollow = (id) =>
+    setFollowing((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
   const addLog = (item) =>
     setLogs((prev) => (prev.some((l) => l.id === item.id) ? prev : [...prev, toLog(item)]));
@@ -198,6 +215,11 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
   };
 
   const openPerson = (id) => {
+    if (id === "me") {
+      setActiveTab("profile");
+      window.scrollTo({ top: 0 });
+      return;
+    }
     setViewingId(id);
     setActiveTab("person");
     window.scrollTo({ top: 0 });
@@ -212,6 +234,11 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
   const changeSettings = (patch) => setSettings((s) => ({ ...s, ...patch }));
 
   const viewing = people.find((p) => p.id === viewingId);
+  const myStats = statsFor({ id: "me", statsVisibility: profile.statsVisibility }, "me", graph);
+  const viewingStats = viewing ? statsFor(viewing, "me", graph) : null;
+  const hasMutuals = viewing ? sharedConnections(graph, "me", viewing.id).length > 0 : false;
+  const dialogOwner = statsOpen ? directory[statsOpen.ownerId] : null;
+  const dialogStats = !dialogOwner ? null : statsOpen.ownerId === "me" ? myStats : statsFor(dialogOwner, "me", graph);
 
   const views = {
     home: (
@@ -247,6 +274,8 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
         }}
         logs={myLogs}
         onOpenLogs={() => setActiveTab("logs")}
+        stats={myStats}
+        onOpenStats={(kind) => setStatsOpen({ ownerId: "me", kind })}
       />
     ),
     hub: <CampusHub profile={profile} />,
@@ -270,6 +299,11 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
         myLogs={myLogs}
         onBack={() => setActiveTab("home")}
         onMessage={() => startChat(viewing.id)}
+        stats={viewingStats}
+        following={following.includes(viewing.id)}
+        onToggleFollow={() => toggleFollow(viewing.id)}
+        hasMutuals={hasMutuals}
+        onOpenStats={(kind) => setStatsOpen({ ownerId: viewing.id, kind })}
       />
     ),
   };
@@ -302,6 +336,23 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
         </div>
       </main>
       <Footer />
+
+      <FollowList
+        kind={statsOpen?.kind ?? null}
+        onKind={(kind) => setStatsOpen((s) => s && { ...s, kind })}
+        owner={dialogOwner}
+        isMe={statsOpen?.ownerId === "me"}
+        stats={dialogStats}
+        directory={directory}
+        following={following}
+        graph={graph}
+        onToggleFollow={toggleFollow}
+        onOpenPerson={(id) => {
+          setStatsOpen(null);
+          openPerson(id);
+        }}
+        onClose={() => setStatsOpen(null)}
+      />
     </div>
   );
 }

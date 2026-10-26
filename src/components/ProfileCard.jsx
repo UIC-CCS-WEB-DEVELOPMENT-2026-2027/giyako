@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { YEARS, yearLabel } from "../lib/years";
 import "./ProfileCard.css";
 
 const Icon = ({ children, size = 18 }) => (
@@ -55,7 +56,11 @@ const SOCIAL_META = {
   },
 };
 
-export default function ProfileCard({ profile, onSave, readOnly = false, onMessage }) {
+const STAT_ITEMS = [["followers", "followers"], ["following", "following"]];
+
+export default function ProfileCard({
+  profile, onSave, readOnly = false, onMessage, stats, onOpenStats, following = false, onToggleFollow, hasMutuals = false,
+}) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(profile);
   const [copied, setCopied] = useState(false);
@@ -79,6 +84,7 @@ export default function ProfileCard({ profile, onSave, readOnly = false, onMessa
   };
   const cancel = () => setEditing(false);
   const save = () => {
+    if (!draft.year) return; // year level is required
     onSave({
       ...draft,
       name: draft.name.trim() || profile.name,
@@ -209,11 +215,23 @@ export default function ProfileCard({ profile, onSave, readOnly = false, onMessa
                 aria-label="Program"
                 placeholder="Program"
               />
+              <select
+                className="pc__field pc__year"
+                value={draft.year ?? ""}
+                onChange={set("year")}
+                aria-label="Year level"
+                aria-required="true"
+                aria-invalid={!draft.year}
+              >
+                {!draft.year && <option value="" disabled>Select your year</option>}
+                {YEARS.map((y) => <option key={y.id} value={y.id}>{y.label}</option>)}
+              </select>
+              {!draft.year && <span className="pc__req" role="alert">Year is required to save</span>}
             </>
           ) : (
             <>
               <h1 className="pc__name">{profile.name}</h1>
-              <p className="pc__program">{profile.program}</p>
+              <p className="pc__program">{[profile.program, yearLabel(profile.year)].filter(Boolean).join(" · ")}</p>
             </>
           )}
         </div>
@@ -249,9 +267,47 @@ export default function ProfileCard({ profile, onSave, readOnly = false, onMessa
                 {profile.pronouns && (
                   <span className="pc__pronouns">{profile.pronouns}</span>
                 )}
+                {readOnly && hasMutuals && (
+                  <span className="pc__mutual" title="Someone you follow also follows them">
+                    <Icon size={14}>
+                      <circle cx="9" cy="8" r="3" />
+                      <path d="M3 19c0-3 2.7-5 6-5s6 2 6 5" />
+                      <circle cx="17" cy="9" r="2.4" />
+                      <path d="M16 14.2c2.9.3 5 2.6 5 5.8" />
+                    </Icon>
+                    Mutuals with you
+                  </span>
+                )}
               </>
             )}
           </div>
+
+          {stats && (
+            <ul className="pc__stats" aria-label="Followers and following">
+              {STAT_ITEMS.map(([kind, label]) => {
+                const s = stats[kind];
+                return (
+                  <li key={kind}>
+                    {s.visible ? (
+                      <button type="button" className="pc__stat" onClick={() => onOpenStats?.(kind)}>
+                        <b>{s.count}</b>
+                        <span>{label}</span>
+                      </button>
+                    ) : (
+                      <span className="pc__stat is-locked" title={`${label} are private`}>
+                        <Icon size={14}>
+                          <rect x="5" y="11" width="14" height="9" rx="2" />
+                          <path d="M8 11V8a4 4 0 018 0v3" />
+                        </Icon>
+                        <span>{label}</span>
+                        <span className="pc__sr">are private</span>
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
 
           {editing ? (
             <div className="pc__desc-wrap">
@@ -328,12 +384,12 @@ export default function ProfileCard({ profile, onSave, readOnly = false, onMessa
           </div>
         </div>
 
-        {/* Actions + visibility */}
+        {/* Actions */}
         <div className="pc__side">
           <div className="pc__actions">
             {editing ? (
               <>
-                <button type="button" className="pc__btn pc__btn--solid" onClick={save}>
+                <button type="button" className="pc__btn pc__btn--solid" onClick={save} disabled={!draft.year}>
                   Save
                 </button>
                 <button type="button" className="pc__btn pc__btn--ghost" onClick={cancel}>
@@ -342,8 +398,33 @@ export default function ProfileCard({ profile, onSave, readOnly = false, onMessa
               </>
             ) : (
               <>
+                {readOnly && onToggleFollow && (
+                  <button
+                    type="button"
+                    className={`pc__btn ${following ? "pc__btn--ghost" : "pc__btn--solid"}`}
+                    aria-pressed={following}
+                    onClick={onToggleFollow}
+                  >
+                    <Icon size={16}>
+                      {following ? (
+                        <path d="M5 12l5 5L20 7" />
+                      ) : (
+                        <>
+                          <circle cx="9" cy="8" r="3.5" />
+                          <path d="M3 19v-1a4 4 0 014-4h4a4 4 0 014 4v1" />
+                          <path d="M19 8v6M16 11h6" />
+                        </>
+                      )}
+                    </Icon>
+                    {following ? "following" : "follow"}
+                  </button>
+                )}
                 {readOnly && onMessage && (
-                  <button type="button" className="pc__btn pc__btn--solid" onClick={onMessage}>
+                  <button
+                    type="button"
+                    className={`pc__btn ${!onToggleFollow || following ? "pc__btn--solid" : "pc__btn--ghost"}`}
+                    onClick={onMessage}
+                  >
                     <Icon size={16}>
                       <path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-8l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z" />
                     </Icon>
@@ -352,14 +433,22 @@ export default function ProfileCard({ profile, onSave, readOnly = false, onMessa
                 )}
                 <button
                   type="button"
-                  className={`pc__btn ${readOnly && onMessage ? "pc__btn--ghost" : "pc__btn--solid"}`}
+                  className={`pc__btn ${readOnly ? "pc__btn--ghost pc__btn--icon" : "pc__btn--solid"}`}
                   onClick={share}
+                  aria-label={readOnly ? (copied ? "Link copied" : "Share profile link") : undefined}
+                  title={readOnly ? "Share profile link" : undefined}
                 >
                   <Icon size={16}>
-                    <path d="M12 15V4M8 8l4-4 4 4" />
-                    <path d="M5 13v6h14v-6" />
+                    {readOnly && copied ? (
+                      <path d="M5 12l5 5L20 7" />
+                    ) : (
+                      <>
+                        <path d="M12 15V4M8 8l4-4 4 4" />
+                        <path d="M5 13v6h14v-6" />
+                      </>
+                    )}
                   </Icon>
-                  {copied ? "Link copied" : "share"}
+                  {!readOnly && (copied ? "Link copied" : "share")}
                 </button>
                 {!readOnly && (
                   <button type="button" className="pc__btn pc__btn--ghost" onClick={startEdit}>
@@ -373,33 +462,6 @@ export default function ProfileCard({ profile, onSave, readOnly = false, onMessa
             )}
           </div>
 
-          {/* Fills the empty space under share/edit: who can see this profile */}
-          {!readOnly && (
-          <div className="pc__visibility">
-            <span className="pc__visibility-label">Who can see this</span>
-            {editing ? (
-              <select
-                className="pc__field pc__select"
-                value={draft.visibility}
-                onChange={set("visibility")}
-                aria-label="Profile visibility"
-              >
-                <option>My campus</option>
-                <option>My college only</option>
-                <option>People I've logged</option>
-                <option>Just me</option>
-              </select>
-            ) : (
-              <span className="pc__chip">
-                <Icon size={14}>
-                  <rect x="5" y="11" width="14" height="9" rx="2" />
-                  <path d="M8 11V8a4 4 0 018 0v3" />
-                </Icon>
-                {profile.visibility}
-              </span>
-            )}
-          </div>
-          )}
         </div>
       </div>
     </section>

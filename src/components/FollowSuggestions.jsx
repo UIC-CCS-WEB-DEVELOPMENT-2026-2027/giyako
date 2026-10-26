@@ -1,4 +1,5 @@
 import MediaCover from "./MediaCover";
+import { yearLabel } from "../lib/years";
 import "./FollowSuggestions.css";
 
 const initialsOf = (name) =>
@@ -62,7 +63,7 @@ export default function FollowSuggestions({ people, hasLogs, onOpen, onMessage, 
                       {p.name}
                     </button>
                   </h3>
-                  <p className="sg__program">{p.program}</p>
+                  <p className="sg__program">{[p.program, yearLabel(p.year)].filter(Boolean).join(" · ")}</p>
                 </div>
               </div>
 

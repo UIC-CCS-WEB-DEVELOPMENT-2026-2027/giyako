@@ -3,9 +3,9 @@ import "./UpcomingEvents.css";
 // Mock events until a real source exists
 const EVENTS = [
   { id: 1, month: "Nov", day: "06", title: "Campus Tech Summit 2026", meta: "9:00 AM · Main Auditorium" },
-  { id: 2, month: "Nov", day: "14", title: "Design Workshop & Hackathon", meta: "1:00 PM · Innovation Lab" },
+  { id: 2, month: "Nov", day: "14", title: "Design Workshop & Hackathon", meta: "1:00 PM · ITRC" },
   { id: 3, month: "Nov", day: "20", title: "AI & Machine Learning Seminar", meta: "3:00 PM · Room 204" },
-  { id: 4, month: "Dec", day: "03", title: "Annual Career & Internship Fair", meta: "10:00 AM · Gymnasium" },
+  { id: 4, month: "Dec", day: "03", title: "Annual Career & Internship Fair", meta: "10:00 AM · MIDES Gym" },
 ];
 
 export default function UpcomingEvents() {

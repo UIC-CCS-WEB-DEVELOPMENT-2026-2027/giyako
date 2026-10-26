@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatTime, lastActivity, unreadCount } from "../lib/messages";
+import { yearLabel } from "../lib/years";
 import "./Messages.css";
 
 const initialsOf = (name) => name.split(/\s+/).map((w) => w[0]).join("").slice(0, 2).toUpperCase();
@@ -156,7 +157,7 @@ export default function Messages({ people, myLogs, threads, typing, chatId, onSe
                 <div className="ms__who">
                   <strong>{active.person.name}</strong>
                   <small>
-                    @{active.person.handle} · {active.person.program}
+                    @{active.person.handle} · {[active.person.program, yearLabel(active.person.year)].filter(Boolean).join(" · ")}
                   </small>
                 </div>
                 <button type="button" className="ms__profile-btn" onClick={() => onOpenPerson(active.id)}>

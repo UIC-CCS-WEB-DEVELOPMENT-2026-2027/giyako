@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { yearLabel } from "../lib/years";
 
 // first + last word initials (Merilyn Y. Batasan -> MB)
 const initialsOf = (name) => {
@@ -48,7 +49,7 @@ export default function ProfileSearch({ people = [], onSelect }) {
     ? people
         .map((p) => {
           const nameText = `${p.name} ${p.handle}`;
-          const programText = p.program.replace("BS ", "");
+          const programText = `${p.program.replace("BS ", "")} ${yearLabel(p.year)}`;
           let score = 0;
           const matchedLogs = new Set();
           const matches = terms.every((t) => {
@@ -112,7 +113,7 @@ export default function ProfileSearch({ people = [], onSelect }) {
                   </span>
                   <span className="hdr__result-text">
                     <strong>{p.name}</strong>
-                    <small>@{p.handle} · {p.program}</small>
+                    <small>@{p.handle} · {[p.program, yearLabel(p.year)].filter(Boolean).join(" · ")}</small>
                     {matchedLogs.length > 0 && (
                       <span className="hdr__tags">
                         {matchedLogs.slice(0, 3).map((l) => (

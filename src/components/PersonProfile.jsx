@@ -3,7 +3,7 @@ import ProfileCard from "./ProfileCard";
 import LogShowcase from "./LogShowcase";
 import "./PersonProfile.css";
 
-export default function PersonProfile({ person, myLogs, onBack, onMessage }) {
+export default function PersonProfile({ person, myLogs, onBack, onMessage, stats, following, onToggleFollow, onOpenStats, hasMutuals }) {
   const mine = useMemo(() => new Set(myLogs.map((l) => l.id)), [myLogs]);
   const shared = useMemo(() => person.logs.filter((l) => mine.has(l.id)), [person.logs, mine]);
   const first = person.name.split(" ")[0];
@@ -27,7 +27,17 @@ export default function PersonProfile({ person, myLogs, onBack, onMessage }) {
         Back to Home
       </button>
 
-      <ProfileCard profile={person} readOnly onSave={() => {}} onMessage={onMessage} />
+      <ProfileCard
+        profile={person}
+        readOnly
+        onSave={() => {}}
+        onMessage={onMessage}
+        stats={stats}
+        onOpenStats={onOpenStats}
+        following={following}
+        onToggleFollow={onToggleFollow}
+        hasMutuals={hasMutuals}
+      />
 
       {/* key resets the filter when you jump from one profile to another */}
       <LogShowcase
