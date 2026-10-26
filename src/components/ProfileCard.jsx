@@ -55,7 +55,7 @@ const SOCIAL_META = {
   },
 };
 
-export default function ProfileCard({ profile, onSave }) {
+export default function ProfileCard({ profile, onSave, readOnly = false }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(profile);
   const [copied, setCopied] = useState(false);
@@ -128,6 +128,13 @@ export default function ProfileCard({ profile, onSave }) {
     }
   };
 
+  const initials = data.name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
   const filledSocials = data.socials.filter((s) => s.value.trim());
 
   return (
@@ -148,7 +155,17 @@ export default function ProfileCard({ profile, onSave }) {
         {/* Avatar, name, program */}
         <div className="pc__identity">
           <div className="pc__avatar-wrap">
-            <img className="pc__avatar" src={data.avatar} alt="" />
+            {data.avatar ? (
+              <img className="pc__avatar" src={data.avatar} alt="" />
+            ) : (
+              <div
+                className="pc__avatar pc__avatar--initials"
+                style={{ background: data.color }}
+                aria-hidden="true"
+              >
+                {initials}
+              </div>
+            )}
             {editing && (
               <>
                 <button
@@ -332,17 +349,20 @@ export default function ProfileCard({ profile, onSave }) {
                   </Icon>
                   {copied ? "Link copied" : "share"}
                 </button>
-                <button type="button" className="pc__btn pc__btn--ghost" onClick={startEdit}>
-                  <Icon size={16}>
-                    <path d="M4 20l1-4L16.5 4.5a2 2 0 013 3L8 19z" />
-                  </Icon>
-                  edit
-                </button>
+                {!readOnly && (
+                  <button type="button" className="pc__btn pc__btn--ghost" onClick={startEdit}>
+                    <Icon size={16}>
+                      <path d="M4 20l1-4L16.5 4.5a2 2 0 013 3L8 19z" />
+                    </Icon>
+                    edit
+                  </button>
+                )}
               </>
             )}
           </div>
 
           {/* Fills the empty space under share/edit: who can see this profile */}
+          {!readOnly && (
           <div className="pc__visibility">
             <span className="pc__visibility-label">Who can see this</span>
             {editing ? (
@@ -367,6 +387,7 @@ export default function ProfileCard({ profile, onSave }) {
               </span>
             )}
           </div>
+          )}
         </div>
       </div>
     </section>

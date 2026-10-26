@@ -1,0 +1,27 @@
+.pp { width: 100%; max-width: 1040px; margin: 0 auto; font-family: "Instrument Sans", system-ui, sans-serif; color: var(--giyako-ink); }
+.pp__back {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 14px; padding: 6px 10px 6px 6px;
+  border: 0; border-radius: 999px; background: none;
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--giyako-green); cursor: pointer;
+}
+.pp__back:hover { background: rgba(31, 74, 58, 0.08); }
+
+.pp__card { margin-top: 24px; padding: 24px 32px 32px; border: 1px solid var(--giyako-border); border-radius: 28px; background: #fff; }
+.pp__title { margin: 0 0 18px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.pp__count { margin-left: 6px; padding: 2px 9px; border-radius: 999px; background: var(--giyako-field); font-size: 13px; font-weight: 600; color: var(--giyako-muted); vertical-align: middle; }
+.pp__empty { margin: 0; padding: 18px; border: 1.5px dashed var(--giyako-border); border-radius: 16px; text-align: center; color: var(--giyako-muted); font-size: 15px; }
+
+.pp__group + .pp__group { margin-top: 26px; }
+.pp__group-title { margin: 0 0 12px; font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.pp__group-title span { margin-left: 4px; font-size: 14px; font-weight: 500; color: var(--giyako-muted); }
+
+.pp__shelf { display: grid; grid-template-columns: repeat(auto-fill, 120px); gap: 18px 16px; margin: 0; padding: 0; list-style: none; }
+.pp__tile { position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.pp__name { font-size: 12px; font-weight: 600; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pp__badge { position: absolute; top: 6px; right: 6px; padding: 2px 8px; border-radius: 999px; color: #fff; font-size: 10px; font-weight: 700; }
+.pp__badge--star { background: var(--giyako-accent); }
+.pp__badge--shared { background: var(--giyako-green); }
+.pp__badge--star + .pp__badge--shared { top: 28px; }
+
+.pp button:focus-visible { outline: 2px solid var(--giyako-green); outline-offset: 2px; }
+@media (max-width: 700px) { .pp__card { padding: 20px; } }

@@ -234,12 +234,18 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  width: 100%;
   padding: 8px;
+  border: 0;
   border-radius: 8px;
+  background: none;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
 }
 
-.hdr__result:hover { background: var(--giyako-field); }
+.hdr__result:hover,
+.hdr__result:focus-visible { background: var(--giyako-field); }
 
 .hdr__result-avatar {
   width: 32px;

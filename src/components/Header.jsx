@@ -31,7 +31,7 @@ const NAV = [
   },
 ];
 
-export default function Header({ initials = "SR", active, onChange }) {
+export default function Header({ initials = "SR", active, onChange, people = [], onOpenPerson }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -88,7 +88,7 @@ export default function Header({ initials = "SR", active, onChange }) {
         </div>
 
         <div className="hdr__right">
-          <ProfileSearch />
+          <ProfileSearch people={people} onSelect={onOpenPerson} />
 
           <button type="button" className="hdr__icon-btn" aria-label="Notifications">
             <Icon>

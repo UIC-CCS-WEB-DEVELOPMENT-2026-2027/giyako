@@ -1,18 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 
-const profiles = [
-  { id: 1, name: "Sophia Remulta", username: "sophiaremulta", course: "BS Computer Science" },
-  { id: 2, name: "Vince Po", username: "vincepo", course: "BS Information Tech" },
-  { id: 3, name: "Francis Pantonial", username: "francisPantonial", course: "BS Data Science" },
-  { id: 4, name: "Rodzif Braga", username: "rodzifbraga", course: "BS Computer Science" },
-  { id: 5, name: "Lezly Villanueva", username: "lezlyv", course: "BS Information Systems" },
-  { id: 6, name: "Merilyn Y. Batasan", username: "merilynbatasan", course: "BS Data Science" },
-  { id: 7, name: "Bianca Garcia", username: "biancag", course: "BS Information Tech" },
-  { id: 8, name: "Rafael Aquino", username: "rafaquino", course: "BS Computer Science" },
-  { id: 9, name: "Isabel Navarro", username: "isabelnav", course: "BS Information Systems" },
-  { id: 10, name: "Dennis Villanueva", username: "dennisv", course: "BS Computer Engineering" },
-];
-
 // first + last word initials (Merilyn Y. Batasan -> MB)
 const initialsOf = (name) => {
   const w = name.split(" ");
@@ -21,9 +8,10 @@ const initialsOf = (name) => {
 
 // true if any word in the text STARTS with the term
 const startsWithTerm = (text, term) =>
-  text.toLowerCase().split(/[\s/]+/).some((w) => w.startsWith(term));
+  text.toLowerCase().split(/[\s/:.,-]+/).some((w) => w.startsWith(term));
 
-export default function ProfileSearch() {
+// Search the same people shown on Home: by name/handle, program, or something they've logged.
+export default function ProfileSearch({ people = [], onSelect }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const inputRef = useRef(null);
@@ -57,22 +45,35 @@ export default function ProfileSearch() {
   const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
 
   const results = terms.length
-    ? profiles
+    ? people
         .map((p) => {
-          const nameText = `${p.name} ${p.username}`;
-          const courseText = p.course.replace("BS ", "");
+          const nameText = `${p.name} ${p.handle}`;
+          const programText = p.program.replace("BS ", "");
           let score = 0;
+          const matchedLogs = new Set();
           const matches = terms.every((t) => {
-            if (startsWithTerm(nameText, t)) { score += 2; return true; }
-            if (startsWithTerm(courseText, t)) { score += 1; return true; }
+            if (startsWithTerm(nameText, t)) { score += 3; return true; }
+            if (startsWithTerm(programText, t)) { score += 2; return true; }
+            const hits = p.logs.filter((l) => startsWithTerm(l.title, t));
+            if (hits.length) {
+              hits.forEach((l) => matchedLogs.add(l));
+              score += 1;
+              return true;
+            }
             return false;
           });
-          return matches ? { p, score } : null;
+          return matches ? { p, score, matchedLogs: [...matchedLogs] } : null;
         })
         .filter(Boolean)
         .sort((a, b) => b.score - a.score)
-        .map((r) => r.p)
     : [];
+
+  const choose = (id) => {
+    setQuery("");
+    setOpen(false);
+    inputRef.current?.blur();
+    onSelect?.(id);
+  };
 
   return (
     <div className="hdr__search-wrap" ref={wrapRef}>
@@ -85,13 +86,16 @@ export default function ProfileSearch() {
         <input
           ref={inputRef}
           type="text"
-          placeholder="Search for profiles"
+          placeholder="Search people or interests"
           value={query}
           onChange={(e) => {
             setQuery(e.target.value);
             setOpen(true);
           }}
           onFocus={() => setOpen(true)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && results[0]) choose(results[0].p.id);
+          }}
         />
       </label>
 
@@ -100,13 +104,24 @@ export default function ProfileSearch() {
           {results.length === 0 ? (
             <li className="hdr__results-empty">No profiles found</li>
           ) : (
-            results.map((p) => (
-              <li key={p.id} className="hdr__result">
-                <span className="hdr__result-avatar">{initialsOf(p.name)}</span>
-                <span className="hdr__result-text">
-                  <strong>{p.name}</strong>
-                  <small>@{p.username} · {p.course}</small>
-                </span>
+            results.map(({ p, matchedLogs }) => (
+              <li key={p.id}>
+                <button type="button" className="hdr__result" onClick={() => choose(p.id)}>
+                  <span className="hdr__result-avatar" style={{ background: p.color }}>
+                    {initialsOf(p.name)}
+                  </span>
+                  <span className="hdr__result-text">
+                    <strong>{p.name}</strong>
+                    <small>@{p.handle} · {p.program}</small>
+                    {matchedLogs.length > 0 && (
+                      <span className="hdr__tags">
+                        {matchedLogs.slice(0, 3).map((l) => (
+                          <span key={l.id} className="hdr__tag is-match">{l.title}</span>
+                        ))}
+                      </span>
+                    )}
+                  </span>
+                </button>
               </li>
             ))
           )}

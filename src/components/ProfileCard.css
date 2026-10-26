@@ -75,6 +75,7 @@
   border: 4px solid var(--giyako-bg);
   display: block;
 }
+.pc__avatar--initials { display: grid; place-items: center; color: #fff; font-size: 52px; font-weight: 700; }
 .pc.is-editing .pc__avatar { border-color: rgba(245, 243, 234, 0.9); }
 .pc__avatar-edit {
   position: absolute;
