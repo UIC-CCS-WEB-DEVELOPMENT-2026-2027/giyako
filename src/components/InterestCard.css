@@ -7,28 +7,67 @@
   font-family: "Instrument Sans", system-ui, sans-serif;
   color: var(--giyako-ink);
 }
-.ic__title { margin: 0 0 18px; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-.ic__body { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; }
-.ic__featured {
-  aspect-ratio: 2 / 3;
-  border: 1.5px dashed var(--giyako-border);
-  border-radius: 16px;
-  background: var(--giyako-field);
+.ic__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+.ic__title { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+.ic__link, .ic__more {
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--giyako-green);
+  cursor: pointer;
 }
-.ic__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-content: start; }
+.ic__link:hover, .ic__more:hover { text-decoration: underline; }
+.ic__more { margin-top: 16px; }
+
+.ic__body { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 24px; align-items: start; }
+.ic__featured-wrap { position: relative; }
+.ic__featured { width: 100%; aspect-ratio: 2 / 3; }
+.ic__star {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--giyako-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ic__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: start;
+}
+.ic__grid li { min-width: 0; }
+
+.ic__empty,
 .ic__slot {
-  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  width: 100%;
   border: 1.5px dashed var(--giyako-border);
-  border-radius: 16px;
+  border-radius: 14px;
   background: var(--giyako-field);
   color: var(--giyako-muted);
   font: inherit;
   font-size: 24px;
-  cursor: not-allowed;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
 }
+.ic__slot { aspect-ratio: 2 / 3; }
+.ic__empty:hover, .ic__slot:hover { border-color: var(--giyako-green); color: var(--giyako-green); }
+
+.ic button:focus-visible { outline: 2px solid var(--giyako-green); outline-offset: 2px; }
+
 @media (max-width: 700px) {
   .ic { padding: 20px; }
   .ic__body { grid-template-columns: 1fr; }
-  .ic__featured { aspect-ratio: 3 / 2; }
-  .ic__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ic__featured-wrap, .ic__empty { max-width: 190px; }
 }

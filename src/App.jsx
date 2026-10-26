@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FollowSuggestions from "./components/FollowSuggestions";
 import UpcomingEvents from "./components/UpcomingEvents";
 import ProfileView from "./components/ProfileView";
+import MyLogs from "./components/MyLogs";
+import { loadLogs, saveLogs, toLog } from "./lib/media";
 import "./App.css";
 
 // Dummy account records matching your design structure
@@ -101,13 +103,33 @@ function App() {
   const [activeTab, setActiveTab] = useState("home");
   const [searchQuery, setSearchQuery] = useState("");
   const [profile, setProfile] = useState(INITIAL_PROFILE);
+  const [logs, setLogs] = useState(loadLogs);
+
+  useEffect(() => saveLogs(logs), [logs]);
+
+  const addLog = (item) =>
+    setLogs((prev) => (prev.some((l) => l.id === item.id) ? prev : [...prev, toLog(item)]));
+  const removeLog = (id) => setLogs((prev) => prev.filter((l) => l.id !== id));
+  // The first log is the featured pick on the profile
+  const featureLog = (id) =>
+    setLogs((prev) => {
+      const target = prev.find((l) => l.id === id);
+      return target ? [target, ...prev.filter((l) => l.id !== id)] : prev;
+    });
 
   const views = {
     home: <HomeView searchQuery={searchQuery} />,
     discover: <PlaceholderView title="Discover" />,
-    logs: <PlaceholderView title="My logs" />,
+    logs: <MyLogs logs={logs} onAdd={addLog} onRemove={removeLog} onFeature={featureLog} />,
     insights: <PlaceholderView title="Insights" />,
-    profile: <ProfileView profile={profile} onSave={setProfile} />,
+    profile: (
+      <ProfileView
+        profile={profile}
+        onSave={setProfile}
+        logs={logs}
+        onOpenLogs={() => setActiveTab("logs")}
+      />
+    ),
   };
 
   const initials = profile.name

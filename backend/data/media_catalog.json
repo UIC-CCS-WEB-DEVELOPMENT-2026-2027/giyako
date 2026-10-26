@@ -1,0 +1,338 @@
+[
+  {
+    "id": 1,
+    "title": "Interstellar",
+    "media_type": "movie",
+    "creator": "Christopher Nolan",
+    "year": 2014,
+    "poster_url": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic1.colliderimages.com%2Fwordpress%2Fwp-content%2Fuploads%2F2023%2F11%2Finterstellar-movie-poster.jpg&f=1&nofb=1&ipt=417c637e15182b354d6d76b49f481addbf3db0103843b7a4dd0d0533699d3ca2&ipo=images"
+  },
+  {
+    "id": 2,
+    "title": "Inception",
+    "media_type": "movie",
+    "creator": "Christopher Nolan",
+    "year": 2010,
+    "poster_url": null
+  },
+  {
+    "id": 3,
+    "title": "Breaking Bad",
+    "media_type": "tv",
+    "creator": "Vince Gilligan",
+    "year": 2008,
+    "poster_url": null
+  },
+  {
+    "id": 4,
+    "title": "Elden Ring",
+    "media_type": "game",
+    "creator": "FromSoftware",
+    "year": 2022,
+    "poster_url": null
+  },
+  {
+    "id": 5,
+    "title": "Blonde",
+    "media_type": "music",
+    "creator": "Frank Ocean",
+    "year": 2016,
+    "poster_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/68/f9/fe/68f9fec8-81b6-38b1-7e27-796c431436fa/814908025306.jpg/600x600bb.jpg"
+  },
+  {
+    "id": 6,
+    "title": "The Dark Knight",
+    "media_type": "movie",
+    "creator": "Christopher Nolan",
+    "year": 2008,
+    "poster_url": null
+  },
+  {
+    "id": 7,
+    "title": "Spirited Away",
+    "media_type": "movie",
+    "creator": "Hayao Miyazaki",
+    "year": 2001,
+    "poster_url": null
+  },
+  {
+    "id": 8,
+    "title": "Parasite",
+    "media_type": "movie",
+    "creator": "Bong Joon-ho",
+    "year": 2019,
+    "poster_url": null
+  },
+  {
+    "id": 9,
+    "title": "La La Land",
+    "media_type": "movie",
+    "creator": "Damien Chazelle",
+    "year": 2016,
+    "poster_url": null
+  },
+  {
+    "id": 10,
+    "title": "Everything Everywhere All at Once",
+    "media_type": "movie",
+    "creator": "Daniels",
+    "year": 2022,
+    "poster_url": null
+  },
+  {
+    "id": 11,
+    "title": "Stranger Things",
+    "media_type": "tv",
+    "creator": "The Duffer Brothers",
+    "year": 2016,
+    "poster_url": null
+  },
+  {
+    "id": 12,
+    "title": "Arcane",
+    "media_type": "tv",
+    "creator": "Christian Linke & Alex Yee",
+    "year": 2021,
+    "poster_url": null
+  },
+  {
+    "id": 13,
+    "title": "The Bear",
+    "media_type": "tv",
+    "creator": "Christopher Storer",
+    "year": 2022,
+    "poster_url": null
+  },
+  {
+    "id": 14,
+    "title": "Avatar: The Last Airbender",
+    "media_type": "tv",
+    "creator": "Michael Dante DiMartino & Bryan Konietzko",
+    "year": 2005,
+    "poster_url": null
+  },
+  {
+    "id": 15,
+    "title": "Squid Game",
+    "media_type": "tv",
+    "creator": "Hwang Dong-hyuk",
+    "year": 2021,
+    "poster_url": null
+  },
+  {
+    "id": 16,
+    "title": "Hunter x Hunter",
+    "media_type": "anime",
+    "creator": "Yoshihiro Togashi",
+    "year": 2011,
+    "poster_url": null
+  },
+  {
+    "id": 17,
+    "title": "Haikyu!!",
+    "media_type": "anime",
+    "creator": "Haruichi Furudate",
+    "year": 2014,
+    "poster_url": null
+  },
+  {
+    "id": 18,
+    "title": "Attack on Titan",
+    "media_type": "anime",
+    "creator": "Hajime Isayama",
+    "year": 2013,
+    "poster_url": null
+  },
+  {
+    "id": 19,
+    "title": "Your Name",
+    "media_type": "anime",
+    "creator": "Makoto Shinkai",
+    "year": 2016,
+    "poster_url": null
+  },
+  {
+    "id": 20,
+    "title": "Fullmetal Alchemist: Brotherhood",
+    "media_type": "anime",
+    "creator": "Hiromu Arakawa",
+    "year": 2009,
+    "poster_url": null
+  },
+  {
+    "id": 21,
+    "title": "Frieren: Beyond Journey's End",
+    "media_type": "anime",
+    "creator": "Kanehito Yamada & Tsukasa Abe",
+    "year": 2023,
+    "poster_url": null
+  },
+  {
+    "id": 22,
+    "title": "Demon Slayer",
+    "media_type": "anime",
+    "creator": "Koyoharu Gotouge",
+    "year": 2019,
+    "poster_url": null
+  },
+  {
+    "id": 23,
+    "title": "Stardew Valley",
+    "media_type": "game",
+    "creator": "ConcernedApe",
+    "year": 2016,
+    "poster_url": null
+  },
+  {
+    "id": 24,
+    "title": "Hades",
+    "media_type": "game",
+    "creator": "Supergiant Games",
+    "year": 2020,
+    "poster_url": null
+  },
+  {
+    "id": 25,
+    "title": "The Legend of Zelda: Breath of the Wild",
+    "media_type": "game",
+    "creator": "Nintendo",
+    "year": 2017,
+    "poster_url": null
+  },
+  {
+    "id": 26,
+    "title": "Genshin Impact",
+    "media_type": "game",
+    "creator": "HoYoverse",
+    "year": 2020,
+    "poster_url": null
+  },
+  {
+    "id": 27,
+    "title": "Celeste",
+    "media_type": "game",
+    "creator": "Maddy Makes Games",
+    "year": 2018,
+    "poster_url": null
+  },
+  {
+    "id": 28,
+    "title": "Minecraft",
+    "media_type": "game",
+    "creator": "Mojang",
+    "year": 2011,
+    "poster_url": null
+  },
+  {
+    "id": 29,
+    "title": "Valorant",
+    "media_type": "game",
+    "creator": "Riot Games",
+    "year": 2020,
+    "poster_url": null
+  },
+  {
+    "id": 30,
+    "title": "Currents",
+    "media_type": "music",
+    "creator": "Tame Impala",
+    "year": 2015,
+    "poster_url": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/64/48/5c/64485cc9-968c-68cc-764e-9a7c71733def/00602567155454.rgb.jpg/600x600bb.jpg"
+  },
+  {
+    "id": 31,
+    "title": "SOS",
+    "media_type": "music",
+    "creator": "SZA",
+    "year": 2022,
+    "poster_url": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/62/93/13/6293132e-20ff-67ab-3d1f-96bb6797a6ba/196589564955.jpg/600x600bb.jpg"
+  },
+  {
+    "id": 32,
+    "title": "IGOR",
+    "media_type": "music",
+    "creator": "Tyler, the Creator",
+    "year": 2019,
+    "poster_url": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/22/fd/10/22fd10a3-881d-2560-64e7-a9df650b9e47/17UM1IM42651.rgb.jpg/600x600bb.jpg"
+  },
+  {
+    "id": 33,
+    "title": "Random Access Memories",
+    "media_type": "music",
+    "creator": "Daft Punk",
+    "year": 2013,
+    "poster_url": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e8/43/5f/e8435ffa-b6b9-b171-40ab-4ff3959ab661/886443919266.jpg/600x600bb.jpg"
+  },
+  {
+    "id": 34,
+    "title": "Lover",
+    "media_type": "music",
+    "creator": "Taylor Swift",
+    "year": 2019,
+    "poster_url": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/49/3d/ab/493dab54-f920-9043-6181-80993b8116c9/19UMGIM53909.rgb.jpg/600x600bb.jpg"
+  },
+  {
+    "id": 35,
+    "title": "Hit Me Hard and Soft",
+    "media_type": "music",
+    "creator": "Billie Eilish",
+    "year": 2024,
+    "poster_url": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/92/9f/69/929f69f1-9977-3a44-d674-11f70c852d1b/24UMGIM36186.rgb.jpg/600x600bb.jpg"
+  },
+  {
+    "id": 36,
+    "title": "Norwegian Wood",
+    "media_type": "book",
+    "creator": "Haruki Murakami",
+    "year": 1987,
+    "poster_url": "https://covers.openlibrary.org/b/id/2237620-L.jpg"
+  },
+  {
+    "id": 37,
+    "title": "Project Hail Mary",
+    "media_type": "book",
+    "creator": "Andy Weir",
+    "year": 2021,
+    "poster_url": "https://covers.openlibrary.org/b/id/11200092-L.jpg"
+  },
+  {
+    "id": 38,
+    "title": "The Song of Achilles",
+    "media_type": "book",
+    "creator": "Madeline Miller",
+    "year": 2011,
+    "poster_url": "https://covers.openlibrary.org/b/id/7098465-L.jpg"
+  },
+  {
+    "id": 39,
+    "title": "Atomic Habits",
+    "media_type": "book",
+    "creator": "James Clear",
+    "year": 2018,
+    "poster_url": "https://covers.openlibrary.org/b/id/12539702-L.jpg"
+  },
+  {
+    "id": 40,
+    "title": "Pride and Prejudice",
+    "media_type": "book",
+    "creator": "Jane Austen",
+    "year": 1813,
+    "poster_url": "https://covers.openlibrary.org/b/id/14348537-L.jpg"
+  },
+  {
+    "id": 41,
+    "title": "Dune",
+    "media_type": "book",
+    "creator": "Frank Herbert",
+    "year": 1965,
+    "poster_url": "https://covers.openlibrary.org/b/id/11481354-L.jpg"
+  },
+  {
+    "id": 42,
+    "title": "Circe",
+    "media_type": "book",
+    "creator": "Madeline Miller",
+    "year": 2018,
+    "poster_url": "https://covers.openlibrary.org/b/id/8739376-L.jpg"
+  }
+]

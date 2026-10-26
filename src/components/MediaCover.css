@@ -1,0 +1,44 @@
+.mc {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--giyako-field);
+  box-shadow: 0 4px 12px rgba(26, 29, 27, 0.18);
+}
+.mc--music { aspect-ratio: 1 / 1; border-radius: 50%; }
+.mc img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.mc__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  color: #fff;
+  text-align: left;
+}
+.mc--music .mc__fallback { align-items: center; justify-content: center; text-align: center; gap: 4px; padding: 14%; }
+.mc__tag {
+  align-self: flex-start;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.mc--music .mc__tag { align-self: center; }
+.mc__title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
