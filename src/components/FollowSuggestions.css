@@ -70,7 +70,16 @@
 .sg__strip .mc__title { font-size: 8.5px; overflow-wrap: break-word; -webkit-line-clamp: 5; }
 .sg__strip .mc__tag { display: none; }
 
+.sg__actions { display: flex; gap: 8px; }
+.sg__msg {
+  width: 38px; height: 38px; flex: none; display: grid; place-items: center;
+  border: 1.5px solid var(--giyako-green); border-radius: 50%;
+  background: #fff; color: var(--giyako-green); cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.sg__msg:hover { background: var(--giyako-green); color: #fff; }
 .sg__view {
+  flex: 1;
   height: 38px; border: 0; border-radius: 999px;
   background: var(--giyako-green); color: #fff;
   font: inherit; font-size: 14px; font-weight: 600; cursor: pointer;

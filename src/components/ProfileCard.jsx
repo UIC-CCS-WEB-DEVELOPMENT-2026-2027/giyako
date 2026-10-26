@@ -55,7 +55,7 @@ const SOCIAL_META = {
   },
 };
 
-export default function ProfileCard({ profile, onSave, readOnly = false }) {
+export default function ProfileCard({ profile, onSave, readOnly = false, onMessage }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(profile);
   const [copied, setCopied] = useState(false);
@@ -342,7 +342,19 @@ export default function ProfileCard({ profile, onSave, readOnly = false }) {
               </>
             ) : (
               <>
-                <button type="button" className="pc__btn pc__btn--solid" onClick={share}>
+                {readOnly && onMessage && (
+                  <button type="button" className="pc__btn pc__btn--solid" onClick={onMessage}>
+                    <Icon size={16}>
+                      <path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-8l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z" />
+                    </Icon>
+                    message
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className={`pc__btn ${readOnly && onMessage ? "pc__btn--ghost" : "pc__btn--solid"}`}
+                  onClick={share}
+                >
                   <Icon size={16}>
                     <path d="M12 15V4M8 8l4-4 4 4" />
                     <path d="M5 13v6h14v-6" />

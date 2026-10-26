@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FollowSuggestions from "./components/FollowSuggestions";
@@ -6,6 +6,8 @@ import UpcomingEvents from "./components/UpcomingEvents";
 import ProfileView from "./components/ProfileView";
 import PersonProfile from "./components/PersonProfile";
 import MyLogs from "./components/MyLogs";
+import Messages from "./components/Messages";
+import { loadThreads, saveThreads, newMessage, unreadCount } from "./lib/messages";
 import { loadLogs, saveLogs, toLog, searchMedia } from "./lib/media";
 import { MOCK_PROFILES } from "./lib/mockProfiles";
 import "./App.css";
@@ -17,7 +19,7 @@ function greeting() {
   return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
 }
 
-function HomeView({ firstName, people, logs, onOpenPerson, onOpenLogs }) {
+function HomeView({ firstName, people, logs, onOpenPerson, onMessage, onOpenLogs }) {
   const [seed, setSeed] = useState(0);
 
   const mine = useMemo(() => new Set(logs.map((l) => l.id)), [logs]);
@@ -56,6 +58,7 @@ function HomeView({ firstName, people, logs, onOpenPerson, onOpenLogs }) {
         people={ranked}
         hasLogs={logs.length > 0}
         onOpen={onOpenPerson}
+        onMessage={onMessage}
         onRefresh={() => setSeed((s) => s + 1)}
         onOpenLogs={onOpenLogs}
       />
@@ -89,8 +92,17 @@ function App() {
   const [profile, setProfile] = useState(INITIAL_PROFILE);
   const [logs, setLogs] = useState(loadLogs);
   const [posters, setPosters] = useState({});
+  const [threads, setThreads] = useState(loadThreads);
+  const [chatId, setChatId] = useState(undefined); // undefined = most recent, null = list only
+  const [typing, setTyping] = useState({});
+  const replyTimers = useRef(new Map());
 
   useEffect(() => saveLogs(logs), [logs]);
+  useEffect(() => saveThreads(threads), [threads]);
+  useEffect(() => {
+    const timers = replyTimers.current;
+    return () => timers.forEach(clearTimeout);
+  }, []);
 
   // Pull poster art from the backend catalog once; everything else works without it
   useEffect(() => {
@@ -120,6 +132,62 @@ function App() {
       return target ? [target, ...prev.filter((l) => l.id !== id)] : prev;
     });
 
+  const unread = Object.values(threads).reduce((n, t) => n + unreadCount(t), 0);
+
+  const ensureThread = (id) =>
+    setThreads((prev) =>
+      prev[id] ? prev : { ...prev, [id]: { created: Date.now(), lastRead: Date.now(), messages: [] } }
+    );
+
+  // Open Messages on a specific person (starting the chat if it doesn't exist yet)
+  const startChat = (id) => {
+    ensureThread(id);
+    setChatId(id);
+    setActiveTab("messages");
+    window.scrollTo({ top: 0 });
+  };
+
+  // Selecting inside the Messages tab (null = back to the list on phones)
+  const selectChat = (id) => {
+    if (id) ensureThread(id);
+    setChatId(id);
+  };
+
+  const markRead = useCallback((id) => {
+    setThreads((prev) => {
+      const t = prev[id];
+      return t ? { ...prev, [id]: { ...t, lastRead: Date.now() } } : prev;
+    });
+  }, []);
+
+  const sendMessage = (id, text) => {
+    const clean = text.trim();
+    if (!clean) return;
+    const now = Date.now();
+    setThreads((prev) => {
+      const t = prev[id] ?? { created: now, lastRead: now, messages: [] };
+      return { ...prev, [id]: { ...t, lastRead: now, messages: [...t.messages, newMessage("me", clean, now)] } };
+    });
+
+    // Mock reply until there is a real messaging backend
+    if (replyTimers.current.has(id)) return;
+    const person = MOCK_PROFILES.find((p) => p.id === id);
+    if (!person?.replies?.length) return;
+    setTyping((prev) => ({ ...prev, [id]: true }));
+    const timer = setTimeout(() => {
+      replyTimers.current.delete(id);
+      setTyping((prev) => ({ ...prev, [id]: false }));
+      setThreads((prev) => {
+        const t = prev[id];
+        if (!t) return prev;
+        const theirs = t.messages.filter((m) => m.from === "them").length;
+        const reply = person.replies[theirs % person.replies.length];
+        return { ...prev, [id]: { ...t, messages: [...t.messages, newMessage("them", reply)] } };
+      });
+    }, 1400 + Math.random() * 1600);
+    replyTimers.current.set(id, timer);
+  };
+
   const openPerson = (id) => {
     setViewingId(id);
     setActiveTab("person");
@@ -135,10 +203,24 @@ function App() {
         people={people}
         logs={myLogs}
         onOpenPerson={openPerson}
+        onMessage={startChat}
         onOpenLogs={() => setActiveTab("logs")}
       />
     ),
     logs: <MyLogs logs={myLogs} onAdd={addLog} onRemove={removeLog} onFeature={featureLog} />,
+    messages: (
+      <Messages
+        people={people}
+        myLogs={myLogs}
+        threads={threads}
+        typing={typing}
+        chatId={chatId}
+        onSelect={selectChat}
+        onSend={sendMessage}
+        onRead={markRead}
+        onOpenPerson={openPerson}
+      />
+    ),
     profile: (
       <ProfileView
         profile={profile}
@@ -148,7 +230,12 @@ function App() {
       />
     ),
     person: viewing && (
-      <PersonProfile person={viewing} myLogs={myLogs} onBack={() => setActiveTab("home")} />
+      <PersonProfile
+        person={viewing}
+        myLogs={myLogs}
+        onBack={() => setActiveTab("home")}
+        onMessage={() => startChat(viewing.id)}
+      />
     ),
   };
 
@@ -167,6 +254,7 @@ function App() {
         onChange={setActiveTab}
         people={people}
         onOpenPerson={openPerson}
+        unread={unread}
       />
       <main className="main-content">{views[activeTab] ?? views.home}</main>
       <Footer />

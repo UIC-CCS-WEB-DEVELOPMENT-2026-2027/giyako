@@ -31,7 +31,7 @@ function SharedLine({ shared, hasLogs, onOpenLogs }) {
   );
 }
 
-export default function FollowSuggestions({ people, hasLogs, onOpen, onRefresh, onOpenLogs }) {
+export default function FollowSuggestions({ people, hasLogs, onOpen, onMessage, onRefresh, onOpenLogs }) {
   return (
     <section className="sg" aria-label="People you may click with">
       <div className="sg__head">
@@ -79,10 +79,19 @@ export default function FollowSuggestions({ people, hasLogs, onOpen, onRefresh, 
                 </ul>
               </div>
 
-              <button type="button" className="sg__view" onClick={(e) => { e.stopPropagation(); onOpen(p.id); }}
-                aria-label={`View ${p.name}'s profile`}>
-                View profile
-              </button>
+              <div className="sg__actions">
+                <button type="button" className="sg__view" onClick={(e) => { e.stopPropagation(); onOpen(p.id); }}
+                  aria-label={`View ${p.name}'s profile`}>
+                  View profile
+                </button>
+                <button type="button" className="sg__msg" onClick={(e) => { e.stopPropagation(); onMessage(p.id); }}
+                  aria-label={`Message ${p.name}`} title="Message">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-8l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z" />
+                  </svg>
+                </button>
+              </div>
             </article>
           </li>
         ))}

@@ -88,6 +88,20 @@
 
 .hdr__link:hover { color: var(--giyako-ink); }
 
+.hdr__badge {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--giyako-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 .hdr__link.is-active {
   color: var(--giyako-green);
   font-weight: 600;
@@ -311,7 +325,7 @@
 
 @media (max-width: 760px) {
   .hdr__inner { padding: 0 16px; }
-  .hdr__link span { display: none; }
+  .hdr__link > span:not(.hdr__badge) { display: none; }
   .hdr__link { padding: 0 12px; }
   .hdr__wordmark { display: none; }
 }

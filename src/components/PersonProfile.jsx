@@ -3,7 +3,7 @@ import MediaCover from "./MediaCover";
 import { MEDIA_TYPES } from "../lib/media";
 import "./PersonProfile.css";
 
-export default function PersonProfile({ person, myLogs, onBack }) {
+export default function PersonProfile({ person, myLogs, onBack, onMessage }) {
   const mine = new Set(myLogs.map((l) => l.id));
   const shared = person.logs.filter((l) => mine.has(l.id));
   const first = person.name.split(" ")[0];
@@ -24,7 +24,7 @@ export default function PersonProfile({ person, myLogs, onBack }) {
         Back to Home
       </button>
 
-      <ProfileCard profile={person} readOnly onSave={() => {}} />
+      <ProfileCard profile={person} readOnly onSave={() => {}} onMessage={onMessage} />
 
       <section className="pp__card" aria-label="What you have in common">
         <h2 className="pp__title">

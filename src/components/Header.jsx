@@ -29,9 +29,14 @@ const NAV = [
     label: "My logs",
     icon: <Icon><path d="M6 3h12v18l-6-4-6 4z" /></Icon>,
   },
+  {
+    id: "messages",
+    label: "Messages",
+    icon: <Icon><path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-8l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z" /></Icon>,
+  },
 ];
 
-export default function Header({ initials = "SR", active, onChange, people = [], onOpenPerson }) {
+export default function Header({ initials = "SR", active, onChange, people = [], onOpenPerson, unread = 0 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -82,6 +87,11 @@ export default function Header({ initials = "SR", active, onChange, people = [],
               >
                 {item.icon}
                 <span>{item.label}</span>
+                {item.id === "messages" && unread > 0 && (
+                  <span className="hdr__badge" aria-label={`${unread} unread messages`}>
+                    {unread > 9 ? "9+" : unread}
+                  </span>
+                )}
               </button>
             ))}
           </nav>

@@ -43,7 +43,7 @@ const person = (id, name, program, handle, pronouns, description, socials, color
   logs: logIds.map((i) => BY_ID[i]), // first log = featured pick
 });
 
-export const MOCK_PROFILES = [
+const RAW_PROFILES = [
   person("p1", "Alex Rivera", "BS Computer Engineering", "alexrivera", "he/him",
     "Robotics club by day, Hades runs by night. Ask me about my Arduino rover.",
     { instagram: "alexrivera", discord: "alexrivera" }, "#1f4a3a", [24, 23, 1, 12, 32, 30, 41]),
@@ -69,3 +69,17 @@ export const MOCK_PROFILES = [
     "Making things with sensors. Music taste: chaotic.",
     { instagram: "danicruz", tiktok: "danicruz" }, "#4a3b6b", [24, 27, 12, 30, 33, 5, 20]),
 ];
+
+// Canned replies so chats feel alive until there is a real messaging backend.
+const REPLIES = {
+  p1: ["Ha, nice. Hades is the one that got me through midterms.", "Okay but have you tried the Arduino rover yet? I need testers.", "Honestly yes. Let's play something co-op this weekend.", "Same! Send me your top three and I'll send mine."],
+  p2: ["Okay I need your book recs immediately.", "Ha! I've read that one twice and cried both times.", "Send me your playlist? Mine is mostly sad indie.", "Deal. Coffee near the library on Friday?"],
+  p3: ["Frieren is a masterpiece, no notes.", "Wait, are you free for an anime night this week?", "Co-op games this weekend? I'm in.", "Okay, that's excellent taste. I approve."],
+  p4: ["Good taste. Have you seen the cinematography breakdowns for that?", "I made a chart of my watch history, want to see it?", "Ha, fair. Movie night soon?", "Respect. I'll add it to my list."],
+  p5: ["Slow mornings and a good book is the dream.", "Have you tried any fantasy lately? I need ideas.", "Aw, that made my day.", "Let's trade recs. I'll go first."],
+  p6: ["Bouldering this weekend? I can bring board games after.", "Nice. I'll bring Catan, you bring snacks.", "Elden Ring still has me stuck on the same boss, send help.", "Ha, deal."],
+  p7: ["Always down for coffee. Where are you thinking?", "I've got a film list for you, give me a day.", "That's a great pick, honestly.", "Ha, same energy. Let's plan something."],
+  p8: ["Chaotic is the right word for my playlist, brace yourself.", "I'm soldering something right now, one sec.", "Okay, that's a fun one. Tell me more.", "Ha. Send me a song and I'll send one back."],
+};
+
+export const MOCK_PROFILES = RAW_PROFILES.map((p) => ({ ...p, replies: REPLIES[p.id] }));
