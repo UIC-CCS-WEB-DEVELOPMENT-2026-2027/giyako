@@ -3,7 +3,8 @@ import App from "../App";
 import Landing from "./Landing";
 import AuthPage from "./AuthPage";
 import Onboarding from "./Onboarding";
-import { currentUser, logOut, updateUser } from "../lib/auth";
+import { currentUser, deleteUser, logOut, updateUser } from "../lib/auth";
+import { newNotif, saveNotifs } from "../lib/notifications";
 import { saveLogs, toLog } from "../lib/media";
 import { saveThreads } from "../lib/messages";
 
@@ -22,8 +23,15 @@ export default function Root() {
     // Fresh account: overwrite anything left over from earlier sessions
     saveLogs(picks.map(toLog));
     saveThreads({});
+    saveNotifs([newNotif({ kind: "info", text: "Welcome to Giyako! Log a few things you love to see who shares your taste." })]);
     setUser(updateUser(user.email, { onboarded: true, profile }));
     setView("app");
+  };
+
+  const deleteAccount = () => {
+    deleteUser(user.email);
+    saveLogs([]); saveThreads({}); saveNotifs([]);
+    setUser(null); setMode("signup"); setView("landing");
   };
 
   const signOut = () => { logOut(); setUser(null); setMode("login"); setView("landing"); };
@@ -32,6 +40,8 @@ export default function Root() {
     return (
       <App
         initialProfile={user.profile}
+        email={user.email}
+        onDeleteAccount={deleteAccount}
         onProfileChange={(profile) => updateUser(user.email, { profile })}
         onLogout={signOut}
       />

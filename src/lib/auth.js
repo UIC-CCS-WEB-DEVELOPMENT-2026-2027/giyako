@@ -51,3 +51,16 @@ export function verifyEmail(email, code) {
   if (code.trim() !== DEMO_CODE) throw new Error("That code isn’t right. Check your inbox and try again.");
   return updateUser(email, { verified: true });
 }
+
+export async function changePassword(email, current, next) {
+  const u = read(USERS, {})[email];
+  if (!u || u.pw !== (await hash(current))) throw new Error("Your current password doesn’t match.");
+  updateUser(email, { pw: await hash(next) });
+}
+
+export function deleteUser(email) {
+  const users = read(USERS, {});
+  delete users[email];
+  write(USERS, users);
+  localStorage.removeItem(SESSION);
+}

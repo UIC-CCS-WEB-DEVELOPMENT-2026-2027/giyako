@@ -1,0 +1,42 @@
+/* Basic motion for the whole site. Uses the individual translate/scale properties so it never fights existing transforms. */
+@keyframes rise { from { opacity: 0; translate: 0 12px; } to { opacity: 1; translate: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; translate: 0 -6px; scale: 0.97; } to { opacity: 1; translate: none; scale: none; } }
+@keyframes bubble { from { opacity: 0; translate: 0 8px; scale: 0.96; } to { opacity: 1; translate: none; scale: none; } }
+
+/* Page changes */
+.view-enter { flex: 1; min-width: 0; display: flex; animation: rise 0.35s ease-out both; }
+
+/* Cards and tiles settle in one after another */
+.sg__grid > li, .sc__grid > li { animation: rise 0.4s ease-out both; }
+.sg__grid > li:nth-child(2), .sc__grid > li:nth-child(2) { animation-delay: 0.05s; }
+.sg__grid > li:nth-child(3), .sc__grid > li:nth-child(3) { animation-delay: 0.1s; }
+.sg__grid > li:nth-child(4), .sc__grid > li:nth-child(4) { animation-delay: 0.15s; }
+.sg__grid > li:nth-child(5), .sc__grid > li:nth-child(5) { animation-delay: 0.2s; }
+.sg__grid > li:nth-child(n + 6), .sc__grid > li:nth-child(n + 6) { animation-delay: 0.25s; }
+
+/* Menus, panels, search results */
+.hdr__menu, .nb__panel, .hdr__results { animation: pop 0.16s ease-out both; transform-origin: top right; }
+
+/* Messages */
+.ms__row { animation: bubble 0.22s ease-out both; }
+
+/* Landing and auth */
+.ld__copy > * { animation: rise 0.6s ease-out both; }
+.ld__copy > :nth-child(2) { animation-delay: 0.08s; } .ld__copy > :nth-child(3) { animation-delay: 0.16s; }
+.ld__card { animation: fade 0.7s ease-out both; }
+.ld__card--1 { animation-delay: 0.1s; } .ld__card--2 { animation-delay: 0.2s; } .ld__card--3 { animation-delay: 0.3s; }
+.ld__chip { animation: rise 0.6s 0.55s ease-out both; }
+.au__card { animation: rise 0.4s ease-out both; }
+
+/* Feel */
+button:not(:disabled):active { scale: 0.97; }
+.hdr .hdr__link { transition: color 0.15s, border-color 0.2s; }
+html { scroll-behavior: smooth; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+html[data-motion="reduced"] *, html[data-motion="reduced"] *::before, html[data-motion="reduced"] *::after {
+  animation: none !important; transition: none !important; scroll-behavior: auto !important;
+}

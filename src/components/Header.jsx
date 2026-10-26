@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./Header.css";
 import ProfileSearch from "./ProfileSearch";
+import NotificationBell from "./NotificationBell";
 
 const Icon = ({ children, size = 18 }) => (
   <svg
@@ -36,7 +37,7 @@ const NAV = [
   },
 ];
 
-export default function Header({ initials = "SR", active, onChange, people = [], onOpenPerson, unread = 0, onLogout }) {
+export default function Header({ initials = "SR", active, onChange, people = [], onOpenPerson, unread = 0, onLogout, notifs = [], onNotifOpen, onNotifReadAll, onNotifClear }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -100,18 +101,12 @@ export default function Header({ initials = "SR", active, onChange, people = [],
         <div className="hdr__right">
           <ProfileSearch people={people} onSelect={onOpenPerson} />
 
-          <button type="button" className="hdr__icon-btn" aria-label="Notifications">
-            <Icon>
-              <path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9" />
-              <path d="M10.3 21a1.9 1.9 0 003.4 0" />
-            </Icon>
-            <span className="hdr__dot" />
-          </button>
+          <NotificationBell items={notifs} onOpen={onNotifOpen} onReadAll={onNotifReadAll} onClear={onNotifClear} />
 
           <div className="hdr__menu-wrap" ref={menuRef}>
             <button
               type="button"
-              className={`hdr__avatar ${active === "profile" ? "is-active" : ""}`}
+              className={`hdr__avatar ${(active === "profile" || active === "settings") ? "is-active" : ""}`}
               aria-label="Your account"
               aria-haspopup="menu"
               aria-expanded={menuOpen}
@@ -131,6 +126,17 @@ export default function Header({ initials = "SR", active, onChange, people = [],
                   }}
                 >
                   View profile
+                </button>
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="hdr__menu-item"
+                  onClick={() => {
+                    onChange("settings");
+                    setMenuOpen(false);
+                  }}
+                >
+                  Settings
                 </button>
                 <div className="hdr__menu-divider" role="separator" />
                 <button
