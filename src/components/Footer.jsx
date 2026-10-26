@@ -1,6 +1,11 @@
-import './Footer.css';
+import { useState } from "react";
+import InfoDialog from "./InfoDialog";
+import { PAGES, PAGE_ORDER } from "../lib/legal";
+import "./Footer.css";
 
 function Footer() {
+  const [page, setPage] = useState(null);
+
   return (
     <footer className="footer">
       <div className="footer-content">
@@ -13,13 +18,16 @@ function Footer() {
           &copy; {new Date().getFullYear()} Giyako. All rights reserved.
         </p>
 
-        <nav className="footer-links">
-          <a href="#about">About</a>
-          <a href="#privacy">Privacy</a>
-          <a href="#terms">Terms</a>
-          <a href="#contact">Contact</a>
+        <nav className="footer-links" aria-label="Footer">
+          {PAGE_ORDER.map((id) => (
+            <button key={id} type="button" onClick={() => setPage(id)}>
+              {PAGES[id].label}
+            </button>
+          ))}
         </nav>
       </div>
+
+      <InfoDialog page={page} onPage={setPage} onClose={() => setPage(null)} />
     </footer>
   );
 }

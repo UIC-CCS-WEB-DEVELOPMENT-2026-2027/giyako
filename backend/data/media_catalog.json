@@ -5,7 +5,7 @@
     "media_type": "movie",
     "creator": "Christopher Nolan",
     "year": 2014,
-    "poster_url": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic1.colliderimages.com%2Fwordpress%2Fwp-content%2Fuploads%2F2023%2F11%2Finterstellar-movie-poster.jpg&f=1&nofb=1&ipt=417c637e15182b354d6d76b49f481addbf3db0103843b7a4dd0d0533699d3ca2&ipo=images"
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/yQvGrMoipbRoddT0ZR8tPoR7NfX.jpg"
   },
   {
     "id": 2,
@@ -13,7 +13,7 @@
     "media_type": "movie",
     "creator": "Christopher Nolan",
     "year": 2010,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg"
   },
   {
     "id": 3,
@@ -21,7 +21,7 @@
     "media_type": "tv",
     "creator": "Vince Gilligan",
     "year": 2008,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/anFx9aTOOYqgS3v7x3R84Kz67ly.jpg"
   },
   {
     "id": 4,
@@ -45,7 +45,7 @@
     "media_type": "movie",
     "creator": "Christopher Nolan",
     "year": 2008,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
   },
   {
     "id": 7,
@@ -53,7 +53,7 @@
     "media_type": "movie",
     "creator": "Hayao Miyazaki",
     "year": 2001,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg"
   },
   {
     "id": 8,
@@ -61,7 +61,7 @@
     "media_type": "movie",
     "creator": "Bong Joon-ho",
     "year": 2019,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg"
   },
   {
     "id": 9,
@@ -69,7 +69,7 @@
     "media_type": "movie",
     "creator": "Damien Chazelle",
     "year": 2016,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg"
   },
   {
     "id": 10,
@@ -77,7 +77,7 @@
     "media_type": "movie",
     "creator": "Daniels",
     "year": 2022,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/u68AjlvlutfEIcpmbYpKcdi09ut.jpg"
   },
   {
     "id": 11,
@@ -85,7 +85,7 @@
     "media_type": "tv",
     "creator": "The Duffer Brothers",
     "year": 2016,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/uOOtwVbSr4QDjAGIifLDwpb2Pdl.jpg"
   },
   {
     "id": 12,
@@ -93,7 +93,7 @@
     "media_type": "tv",
     "creator": "Christian Linke & Alex Yee",
     "year": 2021,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/87C0wecB8bHb1PsrKBI4kJiEkgV.jpg"
   },
   {
     "id": 13,
@@ -101,7 +101,7 @@
     "media_type": "tv",
     "creator": "Christopher Storer",
     "year": 2022,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/eKfVzzEazSIjJMrw9ADa2x8ksLz.jpg"
   },
   {
     "id": 14,
@@ -109,7 +109,7 @@
     "media_type": "tv",
     "creator": "Michael Dante DiMartino & Bryan Konietzko",
     "year": 2005,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/yaGt4GIutpbXHsv48tWceWg6s56.jpg"
   },
   {
     "id": 15,
@@ -117,7 +117,7 @@
     "media_type": "tv",
     "creator": "Hwang Dong-hyuk",
     "year": 2021,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/1QdXdRYfktUSONkl1oD5gc6Be0s.jpg"
   },
   {
     "id": 16,
@@ -125,7 +125,7 @@
     "media_type": "anime",
     "creator": "Yoshihiro Togashi",
     "year": 2011,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/i2EEr2uBvRlAwJ8d8zTG2Y19mIa.jpg"
   },
   {
     "id": 17,
@@ -133,7 +133,7 @@
     "media_type": "anime",
     "creator": "Haruichi Furudate",
     "year": 2014,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/8WEr48swcqe89Zsy5sdrGCASlIg.jpg"
   },
   {
     "id": 18,
@@ -141,7 +141,7 @@
     "media_type": "anime",
     "creator": "Hajime Isayama",
     "year": 2013,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg"
   },
   {
     "id": 19,
@@ -149,7 +149,7 @@
     "media_type": "anime",
     "creator": "Makoto Shinkai",
     "year": 2016,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/vfJFJPepRKapMd5G2ro7klIRysq.jpg"
   },
   {
     "id": 20,
@@ -157,7 +157,7 @@
     "media_type": "anime",
     "creator": "Hiromu Arakawa",
     "year": 2009,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/5ZFUEOULaVml7pQuXxhpR2SmVUw.jpg"
   },
   {
     "id": 21,
@@ -165,7 +165,7 @@
     "media_type": "anime",
     "creator": "Kanehito Yamada & Tsukasa Abe",
     "year": 2023,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/dqZENchTd7lp5zht7BdlqM7RBhD.jpg"
   },
   {
     "id": 22,
@@ -173,7 +173,7 @@
     "media_type": "anime",
     "creator": "Koyoharu Gotouge",
     "year": 2019,
-    "poster_url": null
+    "poster_url": "https://www.themoviedb.org/t/p/w1280/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg"
   },
   {
     "id": 23,
@@ -181,7 +181,7 @@
     "media_type": "game",
     "creator": "ConcernedApe",
     "year": 2016,
-    "poster_url": null
+    "poster_url": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa93h.webp"
   },
   {
     "id": 24,
@@ -189,7 +189,7 @@
     "media_type": "game",
     "creator": "Supergiant Games",
     "year": 2020,
-    "poster_url": null
+    "poster_url": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9kr.webp"
   },
   {
     "id": 25,
@@ -197,7 +197,7 @@
     "media_type": "game",
     "creator": "Nintendo",
     "year": 2017,
-    "poster_url": null
+    "poster_url": "https://images.igdb.com/igdb/image/upload/t_cover_big/co3p2d.webp"
   },
   {
     "id": 26,
@@ -205,7 +205,7 @@
     "media_type": "game",
     "creator": "HoYoverse",
     "year": 2020,
-    "poster_url": null
+    "poster_url": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa9dy.webp"
   },
   {
     "id": 27,
@@ -213,7 +213,7 @@
     "media_type": "game",
     "creator": "Maddy Makes Games",
     "year": 2018,
-    "poster_url": null
+    "poster_url": "https://images.igdb.com/igdb/image/upload/t_cover_big/cob9dh.webp"
   },
   {
     "id": 28,
@@ -221,7 +221,7 @@
     "media_type": "game",
     "creator": "Mojang",
     "year": 2011,
-    "poster_url":"https://modelmast.com/windows-java%E7%89%88-minecraft-minecraft-java-%E6%9C%80%E6%96%B0%E7%89%88/"
+    "poster_url":"https://images.igdb.com/igdb/image/upload/t_cover_big/coa77e.webp"
   },
   {
     "id": 29,
@@ -229,7 +229,7 @@
     "media_type": "game",
     "creator": "Riot Games",
     "year": 2020,
-    "poster_url": "https://www.mobygames.com/game/146290/valorant/cover/group-398687/cover-953819/"
+    "poster_url": "https://images.igdb.com/igdb/image/upload/t_cover_big/cocqbp.webp"
   },
   {
     "id": 30,

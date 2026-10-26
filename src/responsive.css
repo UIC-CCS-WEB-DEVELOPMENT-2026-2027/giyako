@@ -1,0 +1,135 @@
+/* Responsive fixes for phone (375px), tablet (768px) and desktop (1024px+).
+   Import this LAST in main.jsx (after Root) so it wins over the component CSS. */
+
+/* ---------- Global ---------- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { overflow-x: clip; }
+
+/* Phone browsers shrink 100vh when the address bar shows; dvh tracks the visible area */
+@supports (min-height: 100dvh) {
+  #root, .app-container, .ld, .au { min-height: 100dvh; }
+  .info { max-height: min(86dvh, 760px); }
+}
+
+/* iOS Safari zooms the page when you focus an input under 16px */
+@media (max-width: 700px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(.pc__name),
+  textarea,
+  select { font-size: 16px !important; }
+}
+
+/* Touch screens: bigger tap targets, no sticky hover lift */
+@media (pointer: coarse) {
+  .sc__chip, .lg-chip, .lg-btn, .hub__tags button { min-height: 40px; }
+  .lg-icon-btn { width: 32px; height: 32px; }
+  .hp__vote button { width: 36px; height: 36px; }
+  .hp__foot button { min-height: 36px; }
+  .info__tabs button { height: 40px; }
+}
+@media (hover: none) {
+  .sg__card:hover { transform: none; box-shadow: none; border-color: var(--giyako-border); }
+  a.pc__social-icon:hover { transform: none; }
+}
+
+/* ---------- Header ---------- */
+.hdr__link { white-space: nowrap; }
+.hdr__nav { min-width: 0; }
+
+/* Laptop widths: the full header was wider than the screen between about 760px and 1200px */
+@media (min-width: 761px) and (max-width: 1280px) {
+  .hdr__inner { padding: 0 28px; }
+  .hdr__left { gap: 20px; }
+  .hdr__link { padding: 0 14px; }
+  .hdr__search { width: 200px; }
+}
+@media (max-width: 900px) {
+  .hdr__wordmark { display: none; }
+}
+/* Phones: icon-only nav squeezed into 360-400px */
+@media (max-width: 520px) {
+  .hdr__inner { height: 64px; padding: 0 12px; gap: 8px; }
+  .hdr__left { gap: 8px; }
+  .hdr__nav { gap: 0; }
+  .hdr__link { padding: 0 10px; }
+  .hdr__right { gap: 8px; }
+  .hdr__logo { width: 36px; height: 36px; }
+  .hdr__icon-btn { width: 40px; height: 40px; }
+  .nb__panel { top: 70px; }
+}
+@media (max-width: 340px) {
+  .hdr__brand { display: none; }
+}
+
+/* ---------- Home ---------- */
+/* The header search is hidden below 1100px, so Home shows the same search there */
+.home__search { display: none; }
+@media (max-width: 1100px) {
+  .home__search { display: block; max-width: 480px; margin-top: 16px; }
+  .home__search .hdr__search { width: 100%; }
+}
+
+/* ---------- Profile card ---------- */
+@media (max-width: 600px) {
+  .pc__side { flex-direction: column; align-items: stretch; gap: 16px; }
+  .pc__actions { flex-wrap: wrap; }
+  .pc__actions .pc__btn { flex: 1 1 0; justify-content: center; }
+  .pc__visibility { flex-direction: row; align-items: center; justify-content: space-between; }
+}
+
+/* ---------- Log grids ---------- */
+/* 3 columns on phones so the featured 2x2 tile stays a sensible size */
+@media (max-width: 520px) {
+  .sc__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 10px; }
+  .sc__name { font-size: 12px; }
+  .sc__type { font-size: 11px; }
+  .sc__badge { padding: 1px 6px; font-size: 9px; }
+}
+@media (max-width: 700px) {
+  .lg-shelf { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 16px 12px; }
+  .lg-title { font-size: 24px; }
+}
+
+/* ---------- Messages ---------- */
+@media (min-width: 761px) and (max-width: 1000px) {
+  .ms { grid-template-columns: 280px minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .ms { height: calc(100vh - 150px); min-height: 420px; }
+  @supports (height: 100dvh) { .ms { height: calc(100dvh - 130px); } }
+}
+
+/* ---------- Campus hub ---------- */
+@media (max-width: 520px) {
+  .hub__head h1 { font-size: 26px; }
+  .hub__composer { padding: 14px; }
+}
+
+/* ---------- Landing ---------- */
+@media (max-width: 900px) {
+  .ld__stack { margin: 0 auto; }
+}
+@media (max-width: 520px) {
+  .ld__stack { height: 310px; }
+  .ld__card { width: 128px; }
+  .ld__card--0 { left: 2%; top: 28px; }
+  .ld__card--1 { left: 34%; top: 0; }
+  .ld__card--2 { left: 62%; top: 44px; width: 116px; }
+  .ld__card--3 { left: 22%; top: 128px; }
+  .ld__chip { right: 0; bottom: 0; font-size: 13px; }
+  .ld__cta .ld__btn--lg, .ld__how > .ld__btn { width: 100%; }
+  .ld__how h2 { font-size: 24px; }
+  .ld__how li { padding: 20px; }
+}
+
+/* ---------- Sign up, log in, onboarding ---------- */
+@media (max-width: 420px) {
+  .au__main { padding: 24px 16px; }
+  .au__card h1 { font-size: 26px; }
+  .au__row { grid-template-columns: 1fr; gap: 0; }
+  .au__actions .au__btn { flex: 1; }
+}
+
+/* ---------- Info dialog ---------- */
+@media (max-width: 520px) {
+  .info__tabs button { padding: 0 12px; }
+}

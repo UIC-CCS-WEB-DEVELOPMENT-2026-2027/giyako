@@ -52,6 +52,26 @@
   text-decoration: underline;
 }
 
+/* The links open an in-page dialog, so they are buttons styled like the old links */
+.footer-links button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: #f5f2ec;
+  cursor: pointer;
+}
+
+.footer-links button:hover {
+  text-decoration: underline;
+}
+
+.footer-links button:focus-visible {
+  outline: 2px solid #f5f2ec;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 @media (max-width: 700px) {
   .footer-content {
     flex-direction: column;

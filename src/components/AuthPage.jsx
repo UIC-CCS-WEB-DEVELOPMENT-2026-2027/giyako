@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { isEmail, logIn, signUp } from "../lib/auth";
+import InfoDialog from "./InfoDialog";
 import "./Auth.css";
 
 const COPY = {
@@ -16,6 +17,7 @@ export default function AuthPage({ mode, onMode, onBack, onDone }) {
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [info, setInfo] = useState(null); // which info page is open: "terms" | "privacy" | null
   const c = COPY[mode];
 
   const switchTo = (m) => { setError(""); setSent(false); onMode(m); };
@@ -73,7 +75,12 @@ export default function AuthPage({ mode, onMode, onBack, onDone }) {
               {mode === "signup" && (
                 <label className="au__check">
                   <input type="checkbox" checked={agree} onChange={(e) => setAgree(e.target.checked)} />
-                  <span>I agree to the <a href="#terms">Terms</a> and <a href="#privacy">Privacy Policy</a>.</span>
+                  <span>
+                    I agree to the{" "}
+                    <button type="button" className="au__linkbtn" onClick={() => setInfo("terms")}>Terms</button>
+                    {" "}and{" "}
+                    <button type="button" className="au__linkbtn" onClick={() => setInfo("privacy")}>Privacy Policy</button>.
+                  </span>
                 </label>
               )}
 
@@ -96,6 +103,8 @@ export default function AuthPage({ mode, onMode, onBack, onDone }) {
           </div>
         </form>
       </main>
+
+      <InfoDialog page={info} onPage={setInfo} onClose={() => setInfo(null)} />
     </div>
   );
 }

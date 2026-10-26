@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProfileSearch from "./components/ProfileSearch";
 import FollowSuggestions from "./components/FollowSuggestions";
 import UpcomingEvents from "./components/UpcomingEvents";
 import ProfileView from "./components/ProfileView";
@@ -56,6 +57,9 @@ function HomeView({ firstName, people, logs, onOpenPerson, onMessage, onOpenLogs
                 overlapCount === 1 ? "person shares" : "people share"
               } your interests`}
         </p>
+        <div className="home__search">
+          <ProfileSearch people={people} onSelect={onOpenPerson} />
+        </div>
       </header>
 
       <FollowSuggestions
