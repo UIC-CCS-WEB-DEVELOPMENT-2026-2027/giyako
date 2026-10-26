@@ -1,13 +1,27 @@
 import Header from "./components/Header";
-import Footer from './components/Footer';
+import Footer from "./components/Footer";
+import FollowSuggestions from "./components/FollowSuggestions";
+import UpcomingEvents from "./components/UpcomingEvents";
 import "./App.css";
 
-export default function App() {
+function App() {
   return (
-    <>
-      <Header initials="SR" />
-      {/* page content goes here */}
+    <div className="app-container">
+      <Header />
+      <main className="main-content">
+        {/* Left main area: Suggestions */}
+        <section className="suggestions-section">
+          <FollowSuggestions />
+        </section>
+
+        {/* Right side panel: Upcoming Events */}
+        <aside className="events-sidebar">
+          <UpcomingEvents />
+        </aside>
+      </main>
       <Footer />
-    </>
+    </div>
   );
 }
+
+export default App;
