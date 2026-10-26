@@ -1,4 +1,5 @@
 import "./Header.css";
+import ProfileSearch from "./ProfileSearch";
 
 const Icon = ({ children, size = 18 }) => (
   <svg
@@ -79,21 +80,7 @@ export default function Header({ initials = "SR", active, onChange }) {
         </div>
 
         <div className="hdr__right">
-          <label className="hdr__search">
-            <Icon size={16}>
-              <circle cx="11" cy="11" r="7" />
-              <path d="M21 21l-4.3-4.3" />
-            </Icon>
-            <input type="text" placeholder="Search your campus" />
-            <kbd>⌘ K</kbd>
-          </label>
-
-          <button type="button" className="hdr__icon-btn" aria-label="Search">
-            <Icon>
-              <circle cx="11" cy="11" r="7" />
-              <path d="M21 21l-4.3-4.3" />
-            </Icon>
-          </button>
+          <ProfileSearch />
 
           <button type="button" className="hdr__icon-btn" aria-label="Notifications">
             <Icon>
