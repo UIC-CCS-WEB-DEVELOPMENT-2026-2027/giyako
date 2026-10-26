@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import "./Header.css";
 
 const Icon = ({ children, size = 18 }) => (
@@ -30,6 +31,23 @@ const NAV = [
 ];
 
 export default function Header({ initials = "SR", active, onChange }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onDown = (e) => {
+      if (!menuRef.current?.contains(e.target)) setMenuOpen(false);
+    };
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
   return (
     <header className="hdr">
       <div className="hdr__inner">
@@ -93,9 +111,33 @@ export default function Header({ initials = "SR", active, onChange }) {
             <span className="hdr__dot" />
           </button>
 
-          <button type="button" className="hdr__avatar" aria-label="Your profile">
-            {initials}
-          </button>
+          <div className="hdr__menu-wrap" ref={menuRef}>
+            <button
+              type="button"
+              className={`hdr__avatar ${active === "profile" ? "is-active" : ""}`}
+              aria-label="Your account"
+              aria-haspopup="menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((o) => !o)}
+            >
+              {initials}
+            </button>
+            {menuOpen && (
+              <div className="hdr__menu" role="menu">
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="hdr__menu-item"
+                  onClick={() => {
+                    onChange("profile");
+                    setMenuOpen(false);
+                  }}
+                >
+                  View profile
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
