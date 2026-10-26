@@ -6,7 +6,7 @@ Giyako is a campus social app where students log the movies, shows, anime, games
 
 > **Demo project.** Accounts, logs, messages and posts are stored in your browser (`localStorage`), and the campus profiles are mock data. See [Demo notes](#demo-notes).
 
-**Live demo:** _https://giyako-six.vercel.app/_
+**Live demo:** _https://giyako.vercel.app/_
 
 ---
 
