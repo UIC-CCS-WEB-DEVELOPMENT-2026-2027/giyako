@@ -23,19 +23,9 @@ const NAV = [
     icon: <Icon><path d="M3 11l9-8 9 8" /><path d="M5 10v10h14V10" /></Icon>,
   },
   {
-    id: "discover",
-    label: "Discover",
-    icon: <Icon><circle cx="12" cy="12" r="9" /><path d="M15.5 8.5l-2 5-5 2 2-5z" /></Icon>,
-  },
-  {
     id: "logs",
     label: "My logs",
     icon: <Icon><path d="M6 3h12v18l-6-4-6 4z" /></Icon>,
-  },
-  {
-    id: "insights",
-    label: "Insights",
-    icon: <Icon><path d="M4 20V10M10 20V4M16 20v-8M22 20H2" /></Icon>,
   },
 ];
 

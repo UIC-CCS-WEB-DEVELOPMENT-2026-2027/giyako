@@ -36,9 +36,7 @@ function App() {
 
   const views = {
     home: <HomeView />,
-    discover: <PlaceholderView title="Discover" />,
     logs: <PlaceholderView title="My logs" />,
-    insights: <PlaceholderView title="Insights" />,
   };
 
   return (
