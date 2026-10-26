@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import "./Header.css";
 import ProfileSearch from "./ProfileSearch";
 
@@ -24,23 +25,30 @@ const NAV = [
     icon: <Icon><path d="M3 11l9-8 9 8" /><path d="M5 10v10h14V10" /></Icon>,
   },
   {
-    id: "discover",
-    label: "Discover",
-    icon: <Icon><circle cx="12" cy="12" r="9" /><path d="M15.5 8.5l-2 5-5 2 2-5z" /></Icon>,
-  },
-  {
     id: "logs",
     label: "My logs",
     icon: <Icon><path d="M6 3h12v18l-6-4-6 4z" /></Icon>,
   },
-  {
-    id: "insights",
-    label: "Insights",
-    icon: <Icon><path d="M4 20V10M10 20V4M16 20v-8M22 20H2" /></Icon>,
-  },
 ];
 
 export default function Header({ initials = "SR", active, onChange }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onDown = (e) => {
+      if (!menuRef.current?.contains(e.target)) setMenuOpen(false);
+    };
+    const onKey = (e) => e.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("mousedown", onDown);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDown);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
   return (
     <header className="hdr">
       <div className="hdr__inner">
@@ -90,9 +98,33 @@ export default function Header({ initials = "SR", active, onChange }) {
             <span className="hdr__dot" />
           </button>
 
-          <button type="button" className="hdr__avatar" aria-label="Your profile">
-            {initials}
-          </button>
+          <div className="hdr__menu-wrap" ref={menuRef}>
+            <button
+              type="button"
+              className={`hdr__avatar ${active === "profile" ? "is-active" : ""}`}
+              aria-label="Your account"
+              aria-haspopup="menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((o) => !o)}
+            >
+              {initials}
+            </button>
+            {menuOpen && (
+              <div className="hdr__menu" role="menu">
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="hdr__menu-item"
+                  onClick={() => {
+                    onChange("profile");
+                    setMenuOpen(false);
+                  }}
+                >
+                  View profile
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>

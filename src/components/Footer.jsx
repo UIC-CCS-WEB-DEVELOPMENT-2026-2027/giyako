@@ -9,6 +9,10 @@ function Footer() {
           <p>Where U and I, Connect.</p>
         </div>
 
+        <p className="footer-copy">
+          &copy; {new Date().getFullYear()} Giyako. All rights reserved.
+        </p>
+
         <nav className="footer-links">
           <a href="#about">About</a>
           <a href="#privacy">Privacy</a>
@@ -16,10 +20,6 @@ function Footer() {
           <a href="#contact">Contact</a>
         </nav>
       </div>
-
-      <p className="footer-copy">
-        &copy; {new Date().getFullYear()} Giyako. All rights reserved.
-      </p>
     </footer>
   );
 }

@@ -167,6 +167,41 @@
   cursor: pointer;
 }
 
+.hdr__avatar.is-active {
+  box-shadow: 0 0 0 2px var(--giyako-bg), 0 0 0 4px var(--giyako-green);
+}
+
+/* Avatar menu */
+.hdr__menu-wrap { position: relative; }
+
+.hdr__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 170px;
+  padding: 6px;
+  border: 1px solid var(--giyako-border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(26, 29, 27, 0.12);
+}
+
+.hdr__menu-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 9px;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  color: var(--giyako-ink);
+  cursor: pointer;
+}
+
+.hdr__menu-item:hover { background: var(--giyako-field); }
+
 .hdr button:focus-visible,
 .hdr a:focus-visible {
   outline: 2px solid var(--giyako-green);
