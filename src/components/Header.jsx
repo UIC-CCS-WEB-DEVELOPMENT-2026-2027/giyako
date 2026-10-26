@@ -36,7 +36,7 @@ const NAV = [
   },
 ];
 
-export default function Header({ initials = "SR", active, onChange, people = [], onOpenPerson, unread = 0 }) {
+export default function Header({ initials = "SR", active, onChange, people = [], onOpenPerson, unread = 0, onLogout }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -131,6 +131,18 @@ export default function Header({ initials = "SR", active, onChange, people = [],
                   }}
                 >
                   View profile
+                </button>
+                <div className="hdr__menu-divider" role="separator" />
+                <button
+                  type="button"
+                  role="menuitem"
+                  className="hdr__menu-item"
+                  onClick={() => {
+                    setMenuOpen(false);
+                    onLogout?.();
+                  }}
+                >
+                  Sign out
                 </button>
               </div>
             )}

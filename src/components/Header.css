@@ -216,6 +216,12 @@
 
 .hdr__menu-item:hover { background: var(--giyako-field); }
 
+.hdr__menu-divider {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--giyako-border);
+}
+
 .hdr button:focus-visible,
 .hdr a:focus-visible {
   outline: 2px solid var(--giyako-green);

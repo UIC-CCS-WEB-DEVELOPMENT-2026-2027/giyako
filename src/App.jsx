@@ -70,26 +70,10 @@ function HomeView({ firstName, people, logs, onOpenPerson, onMessage, onOpenLogs
   );
 }
 
-const INITIAL_PROFILE = {
-  name: "Sam Reyes",
-  program: "BS Computer Science",
-  handle: "samreyes",
-  pronouns: "she/her",
-  description:
-    "Third-year who codes at night and boulders on weekends. Always down for board games and lo-fi playlists.",
-  visibility: "My campus",
-  avatar: "/avatars/1.png",
-  socials: [
-    { type: "instagram", value: "samreyes" },
-    { type: "tiktok", value: "samreyes" },
-    { type: "discord", value: "samreyes" },
-  ],
-};
-
-function App() {
+function App({ initialProfile, onProfileChange, onLogout }) {
   const [activeTab, setActiveTab] = useState("home");
   const [viewingId, setViewingId] = useState(null);
-  const [profile, setProfile] = useState(INITIAL_PROFILE);
+  const [profile, setProfile] = useState(initialProfile);
   const [logs, setLogs] = useState(loadLogs);
   const [posters, setPosters] = useState({});
   const [threads, setThreads] = useState(loadThreads);
@@ -224,7 +208,10 @@ function App() {
     profile: (
       <ProfileView
         profile={profile}
-        onSave={setProfile}
+        onSave={(p) => {
+          setProfile(p);
+          onProfileChange?.(p);
+        }}
         logs={myLogs}
         onOpenLogs={() => setActiveTab("logs")}
       />
@@ -255,6 +242,7 @@ function App() {
         people={people}
         onOpenPerson={openPerson}
         unread={unread}
+        onLogout={onLogout}
       />
       <main className="main-content">{views[activeTab] ?? views.home}</main>
       <Footer />
