@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Header.css";
 
 const Icon = ({ children, size = 18 }) => (
@@ -40,14 +39,20 @@ const NAV = [
   },
 ];
 
-export default function Header({ initials = "SR" }) {
-  const [active, setActive] = useState("home");
-
+export default function Header({ initials = "SR", active, onChange }) {
   return (
     <header className="hdr">
       <div className="hdr__inner">
         <div className="hdr__left">
-          <a href="/" className="hdr__brand" aria-label="giyako home">
+          <a
+            href="/"
+            className="hdr__brand"
+            aria-label="giyako home"
+            onClick={(e) => {
+              e.preventDefault();
+              onChange("home");
+            }}
+          >
             <span className="hdr__logo">
               <Icon size={22}>
                 <path d="M4 20V9l8-5 8 5v11" />
@@ -64,7 +69,7 @@ export default function Header({ initials = "SR" }) {
                 type="button"
                 className={`hdr__link ${active === item.id ? "is-active" : ""}`}
                 aria-current={active === item.id ? "page" : undefined}
-                onClick={() => setActive(item.id)}
+                onClick={() => onChange(item.id)}
               >
                 {item.icon}
                 <span>{item.label}</span>
