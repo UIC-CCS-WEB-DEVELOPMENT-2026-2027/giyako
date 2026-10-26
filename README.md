@@ -105,65 +105,6 @@ Vite prints the local URL (usually `http://localhost:5173`).
 
 For local development you don't need to set anything. Set `VITE_API_URL` when deploying so the frontend knows where the backend lives.
 
-## API
-
-### `GET /api/health`
-
-Returns `{ "status": "ok" }`.
-
-### `GET /api/media/search`
-
-Searches the media catalog.
-
-| Query param | Description                                                                 |
-| ----------- | --------------------------------------------------------------------------- |
-| `query`     | Case-insensitive match on title or creator. Empty returns everything.       |
-| `type`      | `all` (default), `movie`, `tv`, `anime`, `game`, `music` or `book`          |
-
-Returns up to 60 results:
-
-```json
-[
-  {
-    "id": 4,
-    "title": "Elden Ring",
-    "media_type": "game",
-    "creator": "FromSoftware",
-    "year": 2022,
-    "poster_url": "https://..."
-  }
-]
-```
-
-`poster_url` is `null` for items without artwork, and the UI falls back to a placeholder cover.
-
-Example:
-
-```bash
-curl "http://localhost:5000/api/media/search?query=nolan&type=movie"
-```
-
-## Adding to the catalog
-
-Edit `backend/data/media_catalog.json` and add an entry with a unique `id`:
-
-```json
-{
-  "id": 43,
-  "title": "Your Title",
-  "media_type": "movie",
-  "creator": "Director or Artist",
-  "year": 2024,
-  "poster_url": "https://example.com/poster.jpg"
-}
-```
-
-`poster_url` must be a **direct link to an image file** (ending in `.jpg`, `.png` and so on), not a web page. If you add a new item that mock profiles should reference, also add it to the `MEDIA` list in `src/lib/mockProfiles.js`.
-
-## Deployment (Vercel)
-
-Giyako deploys as **two Vercel projects from the same repository**.
-
 **Backend**
 
 1. Import the repo into Vercel and set **Root Directory** to `backend`.
@@ -203,7 +144,3 @@ Giyako deploys as **two Vercel projects from the same repository**.
 | `npm run lint`    | root     | Run ESLint                      |
 | `npm run dev`     | backend  | Start the API with file watching |
 | `npm start`       | backend  | Start the API                   |
-
-## License
-
-_Add a license here (for example MIT)._
