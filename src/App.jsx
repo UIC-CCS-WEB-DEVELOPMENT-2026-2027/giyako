@@ -8,6 +8,7 @@ import PersonProfile from "./components/PersonProfile";
 import MyLogs from "./components/MyLogs";
 import Messages from "./components/Messages";
 import Settings from "./components/Settings";
+import CampusHub from "./components/CampusHub";
 import { loadNotifs, saveNotifs, newNotif } from "./lib/notifications";
 import { loadSettings, saveSettings } from "./lib/settings";
 import { loadThreads, saveThreads, newMessage, unreadCount } from "./lib/messages";
@@ -244,6 +245,7 @@ function App({ initialProfile, email, onProfileChange, onLogout, onDeleteAccount
         onOpenLogs={() => setActiveTab("logs")}
       />
     ),
+    hub: <CampusHub profile={profile} />,
     settings: (
       <Settings
         email={email}

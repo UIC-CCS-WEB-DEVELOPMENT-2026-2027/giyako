@@ -31,6 +31,11 @@ const NAV = [
     icon: <Icon><path d="M6 3h12v18l-6-4-6 4z" /></Icon>,
   },
   {
+    id: "hub",
+    label: "Campus hub",
+    icon: <Icon><circle cx="9" cy="8" r="3" /><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" /><circle cx="17" cy="9" r="2.4" /><path d="M16 14.2c2.9.3 5 2.6 5 5.8" /></Icon>,
+  },
+  {
     id: "messages",
     label: "Messages",
     icon: <Icon><path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-8l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z" /></Icon>,
@@ -84,6 +89,7 @@ export default function Header({ initials = "SR", active, onChange, people = [],
                 type="button"
                 className={`hdr__link ${active === item.id ? "is-active" : ""}`}
                 aria-current={active === item.id ? "page" : undefined}
+                aria-label={item.id === "messages" && unread > 0 ? `${item.label}, ${unread} unread` : item.label}
                 onClick={() => onChange(item.id)}
               >
                 {item.icon}

@@ -7,6 +7,7 @@ import { currentUser, deleteUser, logOut, updateUser } from "../lib/auth";
 import { newNotif, saveNotifs } from "../lib/notifications";
 import { saveLogs, toLog } from "../lib/media";
 import { saveThreads } from "../lib/messages";
+import { resetHub } from "../lib/hub";
 
 const ready = (u) => u.onboarded && u.profile;
 
@@ -23,6 +24,7 @@ export default function Root() {
     // Fresh account: overwrite anything left over from earlier sessions
     saveLogs(picks.map(toLog));
     saveThreads({});
+    resetHub();
     saveNotifs([newNotif({ kind: "info", text: "Welcome to Giyako! Log a few things you love to see who shares your taste." })]);
     setUser(updateUser(user.email, { onboarded: true, profile }));
     setView("app");
@@ -30,7 +32,7 @@ export default function Root() {
 
   const deleteAccount = () => {
     deleteUser(user.email);
-    saveLogs([]); saveThreads({}); saveNotifs([]);
+    saveLogs([]); saveThreads({}); saveNotifs([]); resetHub();
     setUser(null); setMode("signup"); setView("landing");
   };
 

@@ -18,6 +18,11 @@
 /* Menus, panels, search results */
 .hdr__menu, .nb__panel, .hdr__results { animation: pop 0.16s ease-out both; transform-origin: top right; }
 
+/* Campus hub */
+.hp { animation: rise 0.35s ease-out both; }
+.hub__composer { animation: pop 0.18s ease-out both; transform-origin: top left; }
+.hp__comments { animation: fade 0.2s ease-out both; }
+
 /* Messages */
 .ms__row { animation: bubble 0.22s ease-out both; }
 
